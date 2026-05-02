@@ -3,84 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FÚTBOL 90 | ESTADIOS PRO</title>
+    <title>FÚTBOL 90 | PRO ELITE</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00ff88; --secondary: #ff3e3e; --accent: #ffd700; --bg: #050505; --glass: rgba(0,0,0,0.7); --text: #ffffff; }
+        :root { --primary: #00ff88; --secondary: #ff3e3e; --accent: #ffd700; --bg: #050505; --glass: rgba(0,0,0,0.75); --text: #ffffff; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
         
         body { 
-            background: var(--bg); 
-            color: var(--text); 
-            min-height: 100vh; 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            transition: background-image 1s ease-in-out;
-            position: relative;
+            background: var(--bg); color: var(--text); min-height: 100vh;
+            background-size: cover; background-position: center; background-attachment: fixed;
+            transition: background-image 1.2s ease-in-out;
         }
 
         body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, transparent, rgba(0,0,0,0.8));
-            z-index: -1;
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%); z-index: -1;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 15px; position: relative; z-index: 1; }
         
-        header { 
-            text-align: center; 
-            padding: 40px 0; 
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border-radius: 0 0 30px 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: 30px;
-        }
+        header { text-align: center; padding: 40px 0 20px; }
+        .logo { font-size: 3rem; font-weight: 900; letter-spacing: -3px; }
+        .logo span { color: var(--primary); text-shadow: 0 0 20px var(--primary); }
 
-        .logo { font-size: 2.5rem; font-weight: 900; letter-spacing: -2px; }
-        .logo span { color: var(--primary); text-shadow: 0 0 15px var(--primary); }
-        .update-tag { font-size: 0.7rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; display: block; }
-        
-        .section-title { font-size: 1.2rem; margin: 30px 0 15px; color: #fff; font-weight: 800; text-transform: uppercase; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .slip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        /* Pestañas */
+        .tabs { 
+            display: flex; gap: 10px; margin: 20px 0 30px; overflow-x: auto; 
+            padding-bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab { 
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.1); padding: 12px 25px; 
+            border-radius: 15px; cursor: pointer; white-space: nowrap; font-weight: 700; 
+            font-size: 0.85rem; transition: 0.3s; color: #aaa;
+        }
+        .tab.active { background: var(--primary); color: #000; border-color: var(--primary); transform: translateY(-3px); }
+
+        .section-title { font-size: 1.1rem; margin-bottom: 20px; color: #fff; font-weight: 800; text-transform: uppercase; }
+        .slip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
         
         .bet-slip { 
-            background: var(--glass); 
-            backdrop-filter: blur(20px);
-            border-radius: 24px; 
-            border: 1px solid rgba(255,255,255,0.15); 
-            overflow: hidden; 
-            border-left: 6px solid var(--primary);
-            transition: 0.3s;
+            background: var(--glass); backdrop-filter: blur(25px); border-radius: 26px; 
+            border: 1px solid rgba(255,255,255,0.1); overflow: hidden; position: relative;
         }
-        .bet-slip:hover { transform: scale(1.02); border-left-color: var(--accent); }
+        
+        /* Dificultad */
+        .risk-badge { 
+            position: absolute; top: 15px; right: 20px; font-size: 0.6rem; font-weight: 900; 
+            padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .risk-low { background: #00ff88; color: #000; }
+        .risk-med { background: #ffd700; color: #000; }
+        .risk-high { background: #ff3e3e; color: #fff; }
 
-        .slip-header { background: rgba(255,255,255,0.05); padding: 15px 20px; font-weight: 900; display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--primary); }
-        .slip-body { padding: 25px; }
+        .slip-header { padding: 20px 20px 10px; font-weight: 900; font-size: 0.9rem; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .slip-body { padding: 20px; }
         
-        .match-box { margin-bottom: 25px; }
-        .match-name { font-weight: 900; font-size: 0.9rem; color: #fff; margin-bottom: 12px; display: block; text-transform: uppercase; }
+        .match-box { margin-bottom: 20px; border-left: 3px solid var(--primary); padding-left: 15px; }
+        .match-name { font-weight: 900; font-size: 0.85rem; color: #fff; margin-bottom: 10px; display: block; }
         
-        .details { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .tag { background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); color: #eee; }
-        .tag strong { color: var(--primary); margin-left: 4px; }
+        .details { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .tag { background: rgba(255,255,255,0.05); padding: 7px 10px; border-radius: 8px; font-size: 0.65rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); color: #ddd; }
+        .tag strong { color: var(--primary); }
         
-        .slip-footer { background: rgba(255,255,255,0.05); padding: 20px; display: flex; justify-content: space-between; align-items: center; }
-        .odds { font-weight: 900; font-size: 1.8rem; color: var(--primary); }
-        .btn { background: var(--primary); color: #000; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 900; cursor: pointer; font-size: 0.8rem; }
+        .slip-footer { background: rgba(0,0,0,0.3); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .odds { font-weight: 900; font-size: 1.6rem; color: var(--primary); }
+        .btn { background: var(--primary); color: #000; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 900; cursor: pointer; font-size: 0.75rem; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo">FÚTBOL <span>90</span></div>
-            <span class="update-tag">Modo Dinámico: Estadio Aleatorio</span>
-        </header>
+        <header><div class="logo">FÚTBOL <span>90</span></div></header>
 
-        <h2 class="section-title">Análisis de Estadios Pro</h2>
+        <div class="tabs" id="tabs-bar">
+            <div class="tab active" onclick="changeTab('EURO', this)">Combos Europa ★</div>
+            <div class="tab" onclick="changeTab('ESP', this)">La Liga 🇪🇸</div>
+            <div class="tab" onclick="changeTab('ENG', this)">Premier 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+            <div class="tab" onclick="changeTab('GER', this)">Bundesliga 🇩🇪</div>
+            <div class="tab" onclick="changeTab('ITA', this)">Serie A 🇮🇹</div>
+            <div class="tab" onclick="changeTab('FRA', this)">Ligue 1 🇫🇷</div>
+            <div class="tab" onclick="changeTab('NED', this)">Eredivisie 🇳🇱</div>
+        </div>
+
+        <h2 id="current-section-title" class="section-title">Combos Europeos Seleccionados</h2>
         <div id="slips-container" class="slip-grid"></div>
     </div>
 
@@ -89,31 +94,60 @@
             "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1920&q=80",
             "https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&w=1920&q=80",
             "https://images.unsplash.com/photo-1596727147705-61a532a659bd?auto=format&fit=crop&w=1920&q=80",
-            "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1920&q=80",
-            "https://images.unsplash.com/photo-1614632537423-1e6c2e7a0aab?auto=format&fit=crop&w=1920&q=80"
+            "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1920&q=80"
         ];
-
         document.body.style.backgroundImage = `url(${stadiums[Math.floor(Math.random() * stadiums.length)]})`;
 
-        const recoData = [
-            {
-                title: "COMBO 5 ESTRELLAS",
-                odds: "38.20",
-                matches: [
-                    { name: "Barca vs Osasuna", tags: ["1X2: 1", "Más Remates: Barca", "Goles: +2.5"] },
-                    { name: "Arsenal vs Fulham", tags: ["1X2: 1", "Más Córners: Arsenal", "Ambos Marcan: NO"] },
-                    { name: "Atalanta vs Genoa", tags: ["1X2: 1", "Más Tarjetas: Genoa", "Goles: +1.5"] },
-                    { name: "Leverkusen vs Leipzig", tags: ["1X2: X2", "Más Remates Puerta: Leipzig", "Ambos Marcan: SÍ"] },
-                    { name: "Ajax vs PSV", tags: ["1X2: X", "Goles: +2.5", "Más Remates: PSV"] }
-                ]
-            }
-        ];
+        const data = {
+            'EURO': [
+                { title: "COMBO 5 ESTRELLAS", odds: "38.20", risk: "high", matches: [
+                    { name: "Barca vs Osasuna", tags: ["1X2: 1", "Remates: Barca"] },
+                    { name: "Arsenal vs Fulham", tags: ["1X2: 1", "Goles: +1.5"] },
+                    { name: "Ajax vs PSV", tags: ["1X2: X", "Goles: +2.5"] }
+                ]},
+                { title: "BOMBA REMATES", odds: "12.50", risk: "med", matches: [
+                    { name: "PSG vs Lorient", tags: ["Más Remates: PSG"] },
+                    { name: "Newcastle vs Brighton", tags: ["Más Remates: Newcastle"] }
+                ]}
+            ],
+            'ESP': [
+                { title: "TRIPLETE LA LIGA", odds: "6.45", risk: "med", matches: [
+                    { name: "Barca vs Osasuna", tags: ["1X2: 1", "Ambos Marcan: NO"] },
+                    { name: "Villarreal vs Levante", tags: ["1X2: 1", "Goles: +2.5"] },
+                    { name: "Valencia vs Atleti", tags: ["1X2: X2", "Tarjetas: Valencia"] }
+                ]},
+                { title: "DUELO BARCA (PRO)", odds: "3.10", risk: "low", matches: [
+                    { name: "Barca vs Osasuna", tags: ["1X2: 1", "Más Córners: Barca"] }
+                ]}
+            ],
+            'ENG': [
+                { title: "PREMIER POWER", odds: "5.20", risk: "med", matches: [
+                    { name: "Arsenal vs Fulham", tags: ["1X2: 1", "Más Remates: Arsenal"] },
+                    { name: "Newcastle vs Brighton", tags: ["Goles: +2.5", "Más Córners: Brighton"] }
+                ]}
+            ],
+            'GER': [
+                { title: "ALEMANIA GOLES", odds: "4.80", risk: "low", matches: [
+                    { name: "Bayern vs Heidenheim", tags: ["1X2: 1", "Goles: +3.5"] },
+                    { name: "Leverkusen vs Leipzig", tags: ["Ambos Marcan: SÍ"] }
+                ]}
+            ]
+        };
 
-        function render() {
+        function changeTab(category, el) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            render(category);
+        }
+
+        function render(cat) {
             const container = document.getElementById('slips-container');
-            container.innerHTML = recoData.map(r => `
+            const items = data[cat] || [];
+            
+            container.innerHTML = items.map(r => `
                 <div class="bet-slip">
-                    <div class="slip-header"><span>${r.title}</span><span>ESTADIO PRO</span></div>
+                    <div class="risk-badge risk-${r.risk}">${r.risk === 'low' ? 'Baja' : r.risk === 'med' ? 'Media' : 'Alta'}</div>
+                    <div class="slip-header">${r.title}</div>
                     <div class="slip-body">
                         ${r.matches.map(m => `
                             <div class="match-box">
@@ -126,12 +160,15 @@
                     </div>
                     <div class="slip-footer">
                         <div class="odds"><span>${r.odds}</span></div>
-                        <button class="btn">COPIAR</button>
+                        <button class="btn">COPIAR BOLETO</button>
                     </div>
                 </div>
             `).join('');
+            
+            if(items.length === 0) container.innerHTML = "<p style='color: #aaa; text-align: center; grid-column: 1/-1; padding: 40px;'>Próximamente más recomendaciones para esta liga.</p>";
         }
-        render();
+
+        render('EURO');
     </script>
 </body>
 </html>
