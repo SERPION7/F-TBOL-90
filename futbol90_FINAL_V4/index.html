@@ -73,201 +73,32 @@
         const GITHUB_REPO = 'SERPION7/F-TBOL-90';
         const GITHUB_FILE = 'futbol90_FINAL_V4/index.html';
 
-        var appData = {
-  "EURO": [
-    {
-      "title": "COMBO 5 ESTRELLAS (MIX)",
-      "odds": "14.50",
-      "risk": "BAJA",
-      "matches": [
-        {
-          "name": "CA OSASUNA vs FC BARCELONA",
-          "time": "21:00",
-          "confidence": "88%",
-          "tags": ["1X2: 2", "REMATES A PUERTA: BARCELONA > 5.5"],
-          "analysis": "El Barça domina la posesión y promedia múltiples remates, Osasuna sufre defensivamente."
-        },
-        {
-          "name": "ARSENAL FC vs FULHAM FC",
-          "time": "18:30",
-          "confidence": "85%",
-          "tags": ["1X2: 1", "GOLES: +1.5"],
-          "analysis": "Arsenal se hace fuerte en el Emirates y Fulham permite muchos espacios."
-        },
-        {
-          "name": "BAYER 04 LEVERKUSEN vs RB LEIPZIG",
-          "time": "18:30",
-          "confidence": "80%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
-          "analysis": "Duelo de alta intensidad con dos ataques potentes y defensas adelantadas."
-        },
-        {
-          "name": "COMO 1907 vs SSC NAPOLI",
-          "time": "18:00",
-          "confidence": "82%",
-          "tags": ["1X2: 2", "CÓRNERS: +8.5"],
-          "analysis": "Napoli es superior tácticamente y genera muchos saques de esquina."
-        },
-        {
-          "name": "VALENCIA CF vs CLUB ATLÉTICO DE MADRID",
-          "time": "16:15",
-          "confidence": "78%",
-          "tags": ["TARJETAS: +4.5", "1X2: 2"],
-          "analysis": "Partido friccionado históricamente, ideal para el mercado de amonestaciones y victoria visitante."
-        }
-      ]
-    }
-  ],
-  "ESP": [
-    {
-      "title": "JORNADA LA LIGA",
-      "odds": "7.20",
-      "risk": "MEDIA",
-      "matches": [
-        {
-          "name": "VILLARREAL CF vs LEVANTE UD",
-          "time": "14:00",
-          "confidence": "75%",
-          "tags": ["1X2: 1", "AMBOS MARCARÁN: SÍ"],
-          "analysis": "Villarreal ataca bien en casa pero suele conceder goles en contra."
-        },
-        {
-          "name": "VALENCIA CF vs CLUB ATLÉTICO DE MADRID",
-          "time": "16:15",
-          "confidence": "78%",
-          "tags": ["TARJETAS: +4.5", "GOLES: -2.5"],
-          "analysis": "Duelo muy táctico con pocas ocasiones y alta fricción en el mediocampo."
-        },
-        {
-          "name": "DEPORTIVO ALAVÉS vs ATHLETIC CLUB",
-          "time": "18:30",
-          "confidence": "72%",
-          "tags": ["1X2: 2", "CÓRNERS: +9.5"],
-          "analysis": "Derbi vasco intenso donde el Athletic llega con mejor dinámica ofensiva."
-        },
-        {
-          "name": "CA OSASUNA vs FC BARCELONA",
-          "time": "21:00",
-          "confidence": "88%",
-          "tags": ["1X2: 2", "REMATES A PUERTA: BARCELONA > 5.5"],
-          "analysis": "El Barça necesita ganar y bombardeará el arco de un Osasuna débil."
-        }
-      ]
-    }
-  ],
-  "ENG": [
-    {
-      "title": "PREMIER LEAGUE PICKS",
-      "odds": "8.50",
-      "risk": "ALTA",
-      "matches": [
-        {
-          "name": "BRENTFORD FC vs WEST HAM UNITED FC",
-          "time": "16:00",
-          "confidence": "70%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
-          "analysis": "Equipos con poderío ofensivo y problemas para mantener la portería a cero."
-        },
-        {
-          "name": "NEWCASTLE UNITED FC vs BRIGHTON & HOVE ALBION FC",
-          "time": "16:00",
-          "confidence": "76%",
-          "tags": ["1X2: 1", "CÓRNERS: +10.5"],
-          "analysis": "Newcastle presiona alto en St. James' Park y genera múltiples córners."
-        },
-        {
-          "name": "WOLVERHAMPTON WANDERERS FC vs SUNDERLAND AFC",
-          "time": "16:00",
-          "confidence": "80%",
-          "tags": ["1X2: 1", "GOLES: -2.5"],
-          "analysis": "Wolves domina en casa ante un recién ascendido con problemas de gol."
-        },
-        {
-          "name": "ARSENAL FC vs FULHAM FC",
-          "time": "18:30",
-          "confidence": "85%",
-          "tags": ["1X2: 1", "REMATES A PUERTA: ARSENAL > 6.5"],
-          "analysis": "Arsenal genera mucho volumen de juego ofensivo jugando como local."
-        }
-      ]
-    }
-  ],
-  "GER": [
-    {
-      "title": "BUNDESLIGA ACTION",
-      "odds": "5.90",
-      "risk": "MEDIA",
-      "matches": [
-        {
-          "name": "TSG 1899 HOFFENHEIM vs VFB STUTTGART",
-          "time": "15:30",
-          "confidence": "77%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
-          "analysis": "Equipos verticales que priorizan el ataque sobre la solidez defensiva."
-        },
-        {
-          "name": "EINTRACHT FRANKFURT vs HAMBURGER SV",
-          "time": "15:30",
-          "confidence": "79%",
-          "tags": ["1X2: 1", "TARJETAS: -4.5"],
-          "analysis": "Frankfurt tiene mejor plantilla y controla los partidos como local."
-        },
-        {
-          "name": "FC BAYERN MÜNCHEN vs 1. FC HEIDENHEIM 1846",
-          "time": "15:30",
-          "confidence": "92%",
-          "tags": ["1X2: 1", "GOLES: +3.5"],
-          "analysis": "El Bayern suele aplastar a equipos menores en el Allianz Arena."
-        },
-        {
-          "name": "BAYER 04 LEVERKUSEN vs RB LEIPZIG",
-          "time": "18:30",
-          "confidence": "80%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
-          "analysis": "Choque de trenes con mucho poderío ofensivo y espacios atrás."
-        }
-      ]
-    }
-  ],
-  "ITA": [
-    {
-      "title": "SERIE A SELECTIONS",
-      "odds": "9.10",
-      "risk": "ALTA",
-      "matches": [
-        {
-          "name": "UDINESE CALCIO vs TORINO FC",
-          "time": "15:00",
-          "confidence": "71%",
-          "tags": ["1X2: X", "GOLES: -2.5"],
-          "analysis": "Duelo muy parejo y cerrado, típico del fútbol italiano."
-        },
-        {
-          "name": "COMO 1907 vs SSC NAPOLI",
-          "time": "18:00",
-          "confidence": "82%",
-          "tags": ["1X2: 2", "CÓRNERS: +8.5"],
-          "analysis": "Napoli buscará imponer condiciones desde el primer minuto con ataque por bandas."
-        },
-        {
-          "name": "ATALANTA BC vs GENOA CFC",
-          "time": "20:45",
-          "confidence": "85%",
-          "tags": ["1X2: 1", "GOLES: +2.5"],
-          "analysis": "Atalanta en casa es una máquina de hacer goles y atacar constantemente."
-        },
-        {
-          "name": "AC MILAN vs SS LAZIO",
-          "time": "20:45",
-          "confidence": "74%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "TARJETAS: +5.5"],
-          "analysis": "Partido clave por competencias europeas con alta intensidad y mucha fricción."
-        }
-      ]
-    }
-  ],
-  "FRA": [],
-  "NED": []
+        var appData = Actúa como un tipster profesional VIP y programador. Soy SERPION7 y gestiono la app FÚTBOL 90 PRO. Necesito los pronósticos precisos de HOY en formato JSON estricto.
+
+REGLAS DE SELECCIÓN DE PARTIDOS (MUY IMPORTANTE):
+1. España (ESP) e Inglaterra (ENG): Busca y analiza TODOS los partidos que se jueguen hoy en Primera División y Premier League. No te dejes ninguno. Analízalos a fondo.
+2. Resto de Europa (GER, ITA, FRA, NED): NO pongas todos los partidos. Filtra y dame ÚNICAMENTE los partidos destacados del día (equipos top o partidazos). Máximo 1 o 2 por liga. Si no juega ningún equipo importante en una liga, déjala vacía [].
+3. EURO: Crea un boleto "COMBO 5 ESTRELLAS" mezclando las 5 apuestas más seguras de toda la jornada europea.
+
+DATOS EXIGIDOS POR PARTIDO:
+- "name": Nombres oficiales completos (ej. "Real Madrid CF vs Sevilla FC").
+- "time": Hora exacta del partido (ej. "21:00").
+- "confidence": Porcentaje de seguridad (ej. "85%").
+- "tags": Array con 2 recomendaciones claras (ej. ["1X2: 1", "AMBOS MARCARÁN: SÍ"]).
+- "analysis": Justificación estadística corta y contundente (máximo 15 palabras).
+
+ESTRUCTURA DE RESPUESTA:
+Devuélveme ÚNICAMENTE el código JSON puro, sin markdown, sin saludos ni despedidas, desde { hasta }.
+
+Ejemplo visual de la estructura esperada:
+{
+  "EURO": [ { "title": "COMBO VIP", "odds": "12.50", "risk": "MEDIA", "matches": [ ... ] } ],
+  "ESP": [ { "title": "LA LIGA AL COMPLETO", "odds": "8.50", "risk": "MEDIA", "matches": [ ... ] } ],
+  "ENG": [ { "title": "PREMIER TOTAL", "odds": "10.20", "risk": "ALTA", "matches": [ ... ] } ],
+  "GER": [ ... ],
+  "ITA": [ ... ],
+  "FRA": [ ... ],
+  "NED": [ ... ]
 };
 
         function render(cat, el) {
