@@ -3,96 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FÚTBOL 90 | PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <title>FÚTBOL 90 | FIX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00ff88; --bg: #070e11; --glass: rgba(15, 25, 30, 0.95); }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background: #050505; color: white; font-family: 'Outfit', sans-serif; padding: 20px; }
+        .logo { font-size: 2.5rem; font-weight: 900; text-align: center; margin-bottom: 20px; color: #00ff88; }
+        .tabs { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 20px; padding-bottom: 10px; }
+        .tab { background: #1a1a1a; padding: 10px 20px; border-radius: 10px; white-space: nowrap; cursor: pointer; border: 1px solid #333; color: #888; font-weight: bold; }
+        .tab.active { background: #00ff88; color: black; border-color: #00ff88; }
         
-        body { 
-            background: var(--bg); 
-            color: #ffffff; 
-            min-height: 100vh;
-            background-image: linear-gradient(135deg, #070e11 0%, #13242a 100%);
-            background-size: cover;
-            background-attachment: fixed;
-        }
-
-        .container { max-width: 1000px; margin: 0 auto; padding: 15px; }
+        .slip-grid { display: block; }
+        .bet-slip { background: #111; border-radius: 15px; border: 1px solid #222; margin-bottom: 20px; border-left: 5px solid #00ff88; overflow: hidden; }
+        .slip-header { padding: 15px; font-weight: 900; background: #1a1a1a; font-size: 0.9rem; }
+        .slip-body { padding: 15px; }
+        .match-box { margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .match-name { font-weight: 900; display: block; margin-bottom: 5px; font-size: 0.8rem; }
+        .details { display: flex; flex-wrap: wrap; gap: 5px; }
+        .tag { background: #222; padding: 5px 8px; border-radius: 5px; font-size: 0.6rem; color: #00ff88; border: 1px solid #333; }
+        .slip-footer { padding: 15px; background: #000; display: flex; justify-content: space-between; align-items: center; }
+        .odds { font-size: 1.4rem; font-weight: 900; color: #00ff88; }
+        .btn { background: #00ff88; color: black; border: none; padding: 8px 15px; border-radius: 5px; font-weight: 900; font-size: 0.7rem; }
         
-        header { text-align: center; padding: 30px 0; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
-        .logo { font-size: 2.8rem; font-weight: 900; letter-spacing: -2px; }
-        .logo span { color: var(--primary); }
-
-        .tabs { 
-            display: flex; gap: 8px; margin-bottom: 25px; overflow-x: auto; 
-            padding-bottom: 10px; scrollbar-width: none;
-        }
-        .tab { 
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px 18px; 
-            border-radius: 12px; cursor: pointer; white-space: nowrap; font-weight: 700; 
-            font-size: 0.8rem; color: #888;
-        }
-        .tab.active { background: var(--primary); color: #000; border-color: var(--primary); }
-
-        .slip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
-        
-        .bet-slip { 
-            background: var(--glass); border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.1); overflow: hidden; position: relative;
-        }
-        
-        .risk { 
-            position: absolute; top: 15px; right: 20px; font-size: 0.6rem; font-weight: 900; 
-            padding: 3px 8px; border-radius: 5px; text-transform: uppercase;
-        }
-        .risk-high { background: #ff3e3e; }
-        .risk-med { background: #ffd700; color: #000; }
-        .risk-low { background: #00ff88; color: #000; }
-
-        .slip-header { padding: 15px 20px; font-weight: 900; font-size: 0.8rem; color: #fff; background: rgba(255,255,255,0.03); }
-        .slip-body { padding: 20px; }
-        
-        .match-box { margin-bottom: 15px; padding-left: 12px; border-left: 2px solid var(--primary); }
-        .match-name { font-weight: 800; font-size: 0.85rem; color: #fff; margin-bottom: 8px; display: block; }
-        
-        .details { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-        .tag { background: rgba(255,255,255,0.03); padding: 6px; border-radius: 6px; font-size: 0.6rem; font-weight: 600; color: #bbb; border: 1px solid rgba(255,255,255,0.05); }
-        .tag strong { color: var(--primary); }
-        
-        .slip-footer { background: rgba(0,0,0,0.2); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .odds { font-weight: 900; font-size: 1.5rem; color: var(--primary); }
-        .btn { background: var(--primary); color: #000; border: none; padding: 8px 15px; border-radius: 8px; font-weight: 900; font-size: 0.7rem; }
+        #error-msg { color: #ff3e3e; text-align: center; font-size: 0.7rem; margin-top: 10px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header><div class="logo">FÚTBOL <span>90</span></div></header>
 
-        <div class="tabs">
-            <div class="tab active" onclick="changeTab('EURO', this)">Combos Europa</div>
-            <div class="tab" onclick="changeTab('ESP', this)">España</div>
-            <div class="tab" onclick="changeTab('ENG', this)">Inglaterra</div>
-            <div class="tab" onclick="changeTab('GER', this)">Alemania</div>
-        </div>
+    <div class="logo">FÚTBOL 90</div>
 
-        <div id="slips-container" class="slip-grid">
-            <!-- Los boletos aparecerán aquí -->
-        </div>
+    <div class="tabs">
+        <div class="tab active" onclick="changeTab('EURO', this)">COMBOS EUROPA</div>
+        <div class="tab" onclick="changeTab('ESP', this)">ESPAÑA</div>
+        <div class="tab" onclick="changeTab('ENG', this)">INGLATERRA</div>
     </div>
 
+    <div id="slips-container">
+        <p style="text-align: center; color: #555;">Cargando recomendaciones...</p>
+    </div>
+    
+    <div id="error-msg"></div>
+
     <script>
-        // Datos de las recomendaciones
-        const data = {
+        // Datos básicos para probar
+        var data = {
             'EURO': [
-                { title: "COMBO 5 ESTRELLAS", odds: "38.20", risk: "high", matches: [
-                    { name: "Barca vs Osasuna", tags: ["1X2: 1", "Remates: Barca"] },
-                    { name: "Arsenal vs Fulham", tags: ["1X2: 1", "Goles: +1.5"] },
-                    { name: "Ajax vs PSV", tags: ["1X2: X", "Goles: +2.5"] }
-                ]}
+                {
+                    title: "COMBO 5 ESTRELLAS",
+                    odds: "38.20",
+                    matches: [
+                        { name: "Barca vs Osasuna", tags: ["1X2: 1", "Remates: Barca"] },
+                        { name: "Arsenal vs Fulham", tags: ["1X2: 1", "Goles: +1.5"] },
+                        { name: "Ajax vs PSV", tags: ["1X2: X", "Goles: +2.5"] }
+                    ]
+                }
             ],
             'ESP': [
-                { title: "TRIPLETE LA LIGA", odds: "6.45", risk: "med", matches: [
-                    { name: "Barca vs Osasuna", tags: ["1X2: 1", "Ambos Marcan: NO"] },
-                    { name: "Villarreal vs Levante", tags: ["1X2: 1", "Goles: +2.5"]
+                {
+                    title: "TRIPLETE LA LIGA",
+                    odds: "6.45",
+                    matches: [
+                        { name: "Villarreal vs Levante", tags: ["1X2: 1", "Goles: +2.5"] },
+                        { name: "Valencia vs Atleti", tags: ["X2", "Tarjetas: Valencia"] }
+                    ]
+                }
+            ]
+        };
 
+        function changeTab(cat, el) {
+            var tabs = document.getElementsByClassName('tab');
+            for(var i=0; i<tabs.length; i++) { tabs[i].className = 'tab'; }
+            el.className = 'tab active';
+            render(cat);
+        }
+
+        
