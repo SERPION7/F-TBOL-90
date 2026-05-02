@@ -47,6 +47,8 @@
         input, textarea { width: 100%; background: #111; color: #00ff88; border: 1px solid #333; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-family: monospace; font-size: 0.75rem; }
         .save-btn { width: 100%; background: #00ff88; color: #000; padding: 15px; border-radius: 8px; font-weight: 900; border: none; }
     </style>
+
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -327,6 +329,8 @@
             const img = new Image(); img.src = st[Math.floor(Math.random() * st.length)];
             img.onload = () => document.body.style.backgroundImage = 'url(' + img.src + ')';
         };
-    </script>
+    
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+</script>
 </body>
 </html>
