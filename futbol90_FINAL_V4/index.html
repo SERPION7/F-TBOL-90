@@ -1,397 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FÚTBOL 90 PRO | MAX DATA</title>
-    <style>
-        body { background: #050505; color: white; font-family: sans-serif; padding: 15px; margin: 0; background-size: cover; background-position: center; background-attachment: fixed; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.95) 100%); z-index: -1; }
-        
-        .logo { font-size: 2.2rem; font-weight: 900; text-align: center; padding: 25px 0; color: #00ff88; border-bottom: 1px solid rgba(255,255,255,0.1); user-select: none; }
-        
-        .tabs { display: flex; gap: 8px; overflow-x: auto; padding: 15px 5px; scrollbar-width: none; }
-        .tabs::-webkit-scrollbar { display: none; }
-        .tab { background: rgba(26,26,26,0.8); padding: 10px 18px; border-radius: 12px; white-space: nowrap; border: 1px solid #333; color: #888; font-size: 0.75rem; font-weight: bold; cursor: pointer; backdrop-filter: blur(5px); }
-        .tab.active { background: #00ff88; color: black; border-color: #00ff88; }
-        
-        .container { padding-top: 10px; position: relative; z-index: 1; }
-        .bet-slip { background: rgba(17,17,17,0.85); backdrop-filter: blur(15px); border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; border-left: 5px solid #00ff88; }
-        .slip-header { padding: 12px 15px; font-weight: 900; background: rgba(26,26,26,0.7); font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; color: #fff; }
-        .risk { font-size: 0.55rem; padding: 4px 8px; border-radius: 5px; font-weight: 900; }
-        .risk-ALTA { background: #00ff88; color: black; }
-        .risk-MEDIA { background: #ffd700; color: black; }
-        .risk-BAJA { background: #ff3e3e; color: white; }
-        
-        .slip-body { padding: 15px; }
-        .match-box { margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; }
-        .match-box:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        
-        .match-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
-        .match-name { font-weight: 900; font-size: 0.85rem; color: #fff; text-transform: uppercase; }
-        .match-time { color: #888; font-size: 0.7rem; margin-right: 6px; font-weight: bold; }
-        .match-conf { font-size: 0.7rem; color: #00ff88; font-weight: 900; background: rgba(0,255,136,0.1); padding: 2px 6px; border-radius: 4px; }
-        
-        .details { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 8px; }
-        .tag { background: rgba(26,26,26,0.8); padding: 5px 8px; border-radius: 6px; font-size: 0.65rem; color: #fff; border: 1px solid rgba(0,255,136,0.3); font-weight: bold; }
-        
-        .match-analysis { font-size: 0.65rem; color: #aaa; line-height: 1.4; font-style: italic; background: rgba(255,255,255,0.02); padding: 8px; border-radius: 6px; border-left: 2px solid #555; }
-        
-        .slip-footer { padding: 15px; background: rgba(0,0,0,0.6); display: flex; justify-content: space-between; align-items: center; border-radius: 0 0 15px 15px; }
-        .odds-label { font-size: 0.6rem; color: #888; display: block; }
-        .odds { font-size: 1.6rem; font-weight: 900; color: #00ff88; }
-        .btn { background: #00ff88; color: black; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 900; font-size: 0.75rem; cursor: pointer; }
-
-        /* Panel Admin */
-        #admin-panel { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; padding: 20px; display: none; overflow-y: auto; }
-        input, textarea { width: 100%; background: #111; color: #00ff88; border: 1px solid #333; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-family: monospace; font-size: 0.75rem; }
-        .save-btn { width: 100%; background: #00ff88; color: #000; padding: 15px; border-radius: 8px; font-weight: 900; border: none; }
-    </style>
-
-    <link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FÚTBOL 90 PRO | MAX DATA</title>
+<style>
+body{background:#050505;color:white;font-family:sans-serif;padding:15px;margin:0;background-size:cover;background-position:center;background-attachment:fixed}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(0,0,0,0.6)0%,rgba(0,0,0,0.95)100%);z-index:-1}
+.logo{font-size:2.2rem;font-weight:900;text-align:center;padding:25px 0;color:#00ff88;border-bottom:1px solid rgba(255,255,255,0.1);user-select:none}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:15px 5px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:rgba(26,26,26,0.8);padding:10px 18px;border-radius:12px;white-space:nowrap;border:1px solid #333;color:#888;font-size:0.75rem;font-weight:bold;cursor:pointer;backdrop-filter:blur(5px)}
+.tab.active{background:#00ff88;color:black;border-color:#00ff88}
+.container{padding-top:10px;position:relative;z-index:1}
+.bet-slip{background:rgba(17,17,17,0.85);backdrop-filter:blur(15px);border-radius:15px;border:1px solid rgba(255,255,255,0.1);margin-bottom:20px;border-left:5px solid #00ff88}
+.slip-header{padding:12px 15px;font-weight:900;background:rgba(26,26,26,0.7);font-size:0.75rem;display:flex;justify-content:space-between;align-items:center;color:#fff}
+.risk{font-size:0.55rem;padding:4px 8px;border-radius:5px;font-weight:900}
+.risk-ALTA{background:#00ff88;color:black}.risk-MEDIA{background:#ffd700;color:black}.risk-BAJA{background:#ff3e3e;color:white}
+.slip-body{padding:15px}
+.match-box{margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:12px}
+.match-box:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.match-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.match-name{font-weight:900;font-size:0.85rem;color:#fff;text-transform:uppercase}
+.match-time{color:#888;font-size:0.7rem;margin-right:6px;font-weight:bold}
+.match-conf{font-size:0.7rem;color:#00ff88;font-weight:900;background:rgba(0,255,136,0.1);padding:2px 6px;border-radius:4px}
+.details{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.tag{background:rgba(26,26,26,0.8);padding:5px 8px;border-radius:6px;font-size:0.65rem;color:#fff;border:1px solid rgba(0,255,136,0.3);font-weight:bold}
+.match-analysis{font-size:0.65rem;color:#aaa;line-height:1.4;font-style:italic;background:rgba(255,255,255,0.02);padding:8px;border-radius:6px;border-left:2px solid #555}
+.slip-footer{padding:15px;background:rgba(0,0,0,0.6);display:flex;justify-content:space-between;align-items:center;border-radius:0 0 15px 15px}
+.odds-label{font-size:0.6rem;color:#888;display:block}
+.odds{font-size:1.6rem;font-weight:900;color:#00ff88}
+.btn{background:#00ff88;color:black;border:none;padding:10px 20px;border-radius:8px;font-weight:900;font-size:0.75rem;cursor:pointer}
+#admin-panel{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:2000;padding:20px;display:none;overflow-y:auto}
+input,textarea{width:100%;background:#111;color:#00ff88;border:1px solid #333;padding:12px;border-radius:8px;margin-bottom:15px;font-family:monospace;font-size:0.75rem}
+.save-btn{width:100%;background:#00ff88;color:#000;padding:15px;border-radius:8px;font-weight:900;border:none}
+</style>
+<link rel="manifest" href="manifest.json">
 </head>
 <body>
-
-    <div id="admin-panel">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-            <h3 style="color:white; margin:0;">MODO ADMIN</h3>
-            <button onclick="closeAdmin()" style="background: none; color: white; border: none; font-weight: bold;">CERRAR</button>
-        </div>
-        <p style="font-size: 0.7rem; color: #888; margin-bottom: 5px;">Token GitHub:</p>
-        <input type="password" id="gh-token" placeholder="ghp_...">
-        <p style="font-size: 0.7rem; color: #888; margin-bottom: 5px;">Datos JSON (Pega aquí el resultado de Gemini):</p>
-        <textarea id="data-editor" style="height: 350px;"></textarea>
-        <button class="save-btn" onclick="saveToGitHub()">GUARDAR Y ACTUALIZAR NUBE</button>
-        <div id="status-log" style="font-size: 0.75rem; margin-top: 15px; color: #aaa; text-align: center;"></div>
-    </div>
-
-    <div class="logo" id="main-logo" oncontextmenu="return false;">FÚTBOL <span>90</span></div>
-
-    <div class="tabs" id="tabs-container"></div>
-
-    <div class="container" id="slips-container"></div>
-
-    <script>
-        const GITHUB_REPO = 'SERPION7/F-TBOL-90';
-        const GITHUB_FILE = 'futbol90_FINAL_V4/index.html';
-
-        var appData = <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FÚTBOL 90</title>
-  <style>
-    :root{
-      --bg:#0b1220;
-      --panel:#111a2b;
-      --card:#162238;
-      --line:#23324d;
-      --text:#f3f7ff;
-      --muted:#9db0d0;
-      --accent:#00d26a;
-      --accent2:#12a4ff;
-      --danger:#ff5d73;
-      --warn:#ffbf47;
-      --shadow:0 10px 30px rgba(0,0,0,.28);
-      --radius:20px;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:linear-gradient(180deg,#07101c,#0b1220 35%,#0f1728);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
-    body{min-height:100vh}
-    .app{max-width:460px;margin:0 auto;padding:16px 14px 28px}
-    .top{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:14px 14px 10px;border-radius:22px;
-      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.06);
-      box-shadow:var(--shadow);
-      position:sticky;top:0;backdrop-filter:blur(8px);z-index:10
-    }
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{
-      width:46px;height:46px;border-radius:14px;
-      background:
-        radial-gradient(circle at 30% 25%, rgba(255,255,255,.18), transparent 28%),
-        linear-gradient(135deg,#00d26a,#0b8cff);
-      display:grid;place-items:center;box-shadow:var(--shadow);font-weight:900
-    }
-    .logo span{font-size:18px;color:white}
-    .brand h1{margin:0;font-size:20px;letter-spacing:.4px}
-    .brand p{margin:2px 0 0;color:var(--muted);font-size:12px}
-    .status{
-      font-size:12px;color:#06130d;background:var(--accent);
-      padding:8px 10px;border-radius:999px;font-weight:800
-    }
-    .hero{
-      margin-top:14px;padding:16px;border-radius:24px;background:
-      linear-gradient(135deg, rgba(0,210,106,.18), rgba(18,164,255,.14)),
-      var(--panel);
-      border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow)
-    }
-    .hero h2{margin:0 0 8px;font-size:18px}
-    .hero p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
-    .tabs{
-      display:grid;grid-template-columns:repeat(7,1fr);gap:8px;
-      margin:14px 0 16px
-    }
-    .tab{
-      border:none;border-radius:14px;background:var(--panel);color:var(--muted);
-      padding:10px 0;font-weight:800;font-size:12px;border:1px solid rgba(255,255,255,.06)
-    }
-    .tab.active{background:linear-gradient(135deg,#00d26a,#0ea5ff);color:#04120c}
-    .section-title{
-      display:flex;justify-content:space-between;align-items:center;
-      margin:18px 2px 10px
-    }
-    .section-title h3{margin:0;font-size:15px;letter-spacing:.4px}
-    .section-title span{color:var(--muted);font-size:12px}
-    .match-list{display:grid;gap:12px}
-    .card{
-      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015)),var(--card);
-      border:1px solid rgba(255,255,255,.07);
-      border-radius:20px;padding:14px;box-shadow:var(--shadow)
-    }
-    .row{display:flex;justify-content:space-between;gap:10px}
-    .league{
-      font-size:11px;font-weight:900;letter-spacing:.8px;color:#09120e;
-      background:linear-gradient(135deg,#00d26a,#7fffbc);padding:6px 10px;border-radius:999px
-    }
-    .time{
-      font-size:12px;font-weight:800;color:#071019;background:#ddecff;padding:6px 10px;border-radius:999px
-    }
-    .teams{margin:12px 0 10px;font-size:17px;line-height:1.28;font-weight:900}
-    .meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
-    .confidence{font-size:13px;color:var(--warn);font-weight:900}
-    .tags{display:flex;flex-wrap:wrap;gap:8px}
-    .tag{
-      font-size:11px;padding:7px 9px;border-radius:999px;
-      background:rgba(18,164,255,.12);color:#7dcbff;border:1px solid rgba(18,164,255,.25);font-weight:800
-    }
-    .analysis{
-      color:var(--muted);font-size:13px;line-height:1.45;
-      border-top:1px solid rgba(255,255,255,.06);padding-top:10px
-    }
-    .empty,.error{
-      padding:16px;border-radius:18px;background:var(--panel);
-      border:1px dashed rgba(255,255,255,.12);color:var(--muted);text-align:center
-    }
-    .error{color:#ffd5db;border-color:rgba(255,93,115,.35);background:rgba(255,93,115,.08)}
-    .footer-space{height:12px}
-  </style>
-</head>
-<body>
-  <main class="app">
-    <header class="top">
-      <div class="brand">
-        <div class="logo"><span>90</span></div>
-        <div>
-          <h1>FÚTBOL 90</h1>
-          <p>Partidos del día y picks rápidos</p>
-        </div>
-      </div>
-      <div class="status" id="statusBadge">OK</div>
-    </header>
-
-    <section class="hero">
-      <h2>Agenda deportiva de hoy</h2>
-      <p>Todo va embebido dentro del HTML para evitar pantalla negra. No usa localStorage ni fetch externo.</p>
-    </section>
-
-    <nav class="tabs" id="tabs"></nav>
-
-    <section id="content"></section>
-    <div class="footer-space"></div>
-  </main>
-
-  <script>
-    const DATA = {
-      "ESP":[
-        {"name":"Villarreal CF vs Levante UD","time":"13:00","confidence":"74%","tags":["1X2","Goles"],"analysis":"Villarreal ya ganó hoy 5-1; favorito confirmado."},
-        {"name":"Valencia CF vs Atlético de Madrid","time":"15:15","confidence":"68%","tags":["1X2","Goles"],"analysis":"Atlético suele competir bien en duelos cerrados."},
-        {"name":"Deportivo Alavés vs Athletic Club","time":"17:30","confidence":"63%","tags":["1X2","Ambos Marcan"],"analysis":"Derbi vasco tenso; Athletic competitivo, Alavés aprieta en casa."},
-        {"name":"CA Osasuna vs FC Barcelona","time":"20:00","confidence":"72%","tags":["1X2","Goles"],"analysis":"Barcelona genera bastante ataque; Osasuna compite mejor como local."}
-      ],
-      "ENG":[
-        {"name":"Brentford FC vs West Ham United","time":"15:00","confidence":"61%","tags":["Ambos Marcan","Goles"],"analysis":"Dos equipos irregulares; hay opciones en ambas áreas."},
-        {"name":"Newcastle United vs Brighton & Hove Albion","time":"15:00","confidence":"69%","tags":["Ambos Marcan","Goles"],"analysis":"Newcastle llega con tendencia goleadora; Brighton también suele marcar."},
-        {"name":"Wolverhampton Wanderers vs Sunderland AFC","time":"15:00","confidence":"58%","tags":["1X2","Goles"],"analysis":"Wolves parte con ligera ventaja local; margen corto esperado."},
-        {"name":"Arsenal FC vs Fulham FC","time":"17:30","confidence":"76%","tags":["1X2","Goles"],"analysis":"Arsenal en casa suele dominar posesión, tiros y ritmo."}
-      ],
-      "GER":[
-        {"name":"FC Bayern Munich vs 1. FC Heidenheim","time":"14:30","confidence":"81%","tags":["1X2","Goles"],"analysis":"Bayern suele imponerse por volumen ofensivo y plantilla."},
-        {"name":"Bayer 04 Leverkusen vs RB Leipzig","time":"17:30","confidence":"64%","tags":["Ambos Marcan","Goles"],"analysis":"Cruce fuerte; ambos tienen recursos para generar ocasiones."}
-      ],
-      "ITA":[
-        {"name":"Como 1907 vs SSC Napoli","time":"17:00","confidence":"71%","tags":["1X2","Goles"],"analysis":"Napoli tiene mayor pegada y mejor consistencia."},
-        {"name":"Atalanta BC vs Genoa CFC","time":"19:45","confidence":"73%","tags":["1X2","Goles"],"analysis":"Atalanta en casa suele sostener presión alta."}
-      ],
-      "FRA":[
-        {"name":"Paris Saint-Germain vs FC Lorient","time":"17:00","confidence":"82%","tags":["1X2","Goles"],"analysis":"PSG mantiene superioridad ofensiva frente a rivales menores."},
-        {"name":"FC Metz vs AS Monaco","time":"19:00","confidence":"67%","tags":["1X2","Ambos Marcan"],"analysis":"Monaco compite arriba; Metz puede rascar alguna ocasión."}
-      ],
-      "NED":[
-        {"name":"AFC Ajax vs PSV Eindhoven","time":"20:00","confidence":"66%","tags":["Ambos Marcan","Goles"],"analysis":"Choque grande; calidad ofensiva bilateral sugiere partido abierto."}
-      ],
-      "EURO":[
-        {"name":"Arsenal FC vs Fulham FC","time":"17:30","confidence":"76%","tags":["1X2","Goles"],"analysis":"Arsenal en casa suele dominar posesión, tiros y ritmo."},
-        {"name":"CA Osasuna vs FC Barcelona","time":"20:00","confidence":"72%","tags":["1X2","Goles"],"analysis":"Barcelona genera bastante ataque; Osasuna compite mejor como local."},
-        {"name":"FC Bayern Munich vs 1. FC Heidenheim","time":"14:30","confidence":"81%","tags":["1X2","Goles"],"analysis":"Bayern suele imponerse por volumen ofensivo y plantilla."},
-        {"name":"Paris Saint-Germain vs FC Lorient","time":"17:00","confidence":"82%","tags":["1X2","Goles"],"analysis":"PSG mantiene superioridad ofensiva frente a rivales menores."},
-        {"name":"AFC Ajax vs PSV Eindhoven","time":"20:00","confidence":"66%","tags":["Ambos Marcan","Goles"],"analysis":"Choque grande; partido con pinta de intercambio de golpes."}
-      ]
-    };
-
-    const LEAGUES = ["ESP","ENG","GER","ITA","FRA","NED","EURO"];
-    const tabs = document.getElementById("tabs");
-    const content = document.getElementById("content");
-    const statusBadge = document.getElementById("statusBadge");
-
-    function safeText(value){
-      return String(value ?? "").replace(/[<>&"]/g, s => ({
-        "<":"&lt;", ">":"&gt;", "&":"&amp;", '"':"&quot;"
-      }[s]));
-    }
-
-    function renderTabs(active){
-      tabs.innerHTML = LEAGUES.map(code => {
-        const count = Array.isArray(DATA[code]) ? DATA[code].length : 0;
-        return `<button class="tab ${code===active?'active':''}" data-code="${code}">${code}<br>${count}</button>`;
-      }).join("");
-      tabs.querySelectorAll(".tab").forEach(btn=>{
-        btn.addEventListener("click",()=>renderLeague(btn.dataset.code));
-      });
-    }
-
-    function renderLeague(code){
-      renderTabs(code);
-      const matches = Array.isArray(DATA[code]) ? DATA[code] : [];
-      if(!matches.length){
-        content.innerHTML = `
-          <div class="section-title">
-            <h3>${safeText(code)}</h3>
-            <span>0 partidos</span>
-          </div>
-          <div class="empty">No hay partidos cargados en esta sección.</div>
-        `;
-        return;
-      }
-
-      content.innerHTML = `
-        <div class="section-title">
-          <h3>${safeText(code)}</h3>
-          <span>${matches.length} partidos</span>
-        </div>
-        <div class="match-list">
-          ${matches.map(match => `
-            <article class="card">
-              <div class="row">
-                <div class="league">${safeText(code)}</div>
-                <div class="time">${safeText(match.time)}</div>
-              </div>
-              <div class="teams">${safeText(match.name)}</div>
-              <div class="meta">
-                <div class="confidence">Confianza: ${safeText(match.confidence)}</div>
-                <div class="tags">
-                  ${(match.tags || []).map(tag => `<span class="tag">${safeText(tag)}</span>`).join("")}
-                </div>
-              </div>
-              <div class="analysis">${safeText(match.analysis)}</div>
-            </article>
-          `).join("")}
-        </div>
-      `;
-    }
-
-    try{
-      statusBadge.textContent = "LIVE";
-      renderLeague("EURO");
-    }catch(err){
-      statusBadge.textContent = "ERROR";
-      content.innerHTML = `<div class="error">Error al renderizar la app: ${safeText(err.message)}</div>`;
-    }
-  </script>
-</body>
-</html>;
-
-        function render(cat, el) {
-            if(el) { document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); el.classList.add('active'); }
-            const container = document.getElementById('slips-container');
-            const items = appData[cat] || [];
-            if(items.length === 0) { container.innerHTML = '<p style="text-align:center; padding:40px; color:#666; font-weight:bold;">No hay partidos destacables hoy en esta liga.</p>'; return; }
-
-            container.innerHTML = items.map(c => `
-                <div class="bet-slip">
-                    <div class="slip-header"><span>${c.title}</span><span class="risk risk-${c.risk}">PROBABILIDAD: ${c.risk}</span></div>
-                    <div class="slip-body">
-                        ${c.matches.map(m => `
-                            <div class="match-box">
-                                <div class="match-header">
-                                    <span class="match-name"><span class="match-time">${m.time || ''}</span>${m.name}</span>
-                                    ${m.confidence ? `<span class="match-conf">${m.confidence}</span>` : ''}
-                                </div>
-                                <div class="details">
-                                    ${m.tags.map(t => `<div class="tag">${t}</div>`).join('')}
-                                </div>
-                                ${m.analysis ? `<div class="match-analysis">${m.analysis}</div>` : ''}
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="slip-footer"><div><span class="odds-label">CUOTA TOTAL</span><span class="odds">${c.odds}</span></div><button class="btn">COPIAR BOLETO</button></div>
-                </div>
-            `).join('');
-        }
-
-        let timer;
-        const logo = document.getElementById('main-logo');
-        logo.addEventListener('touchstart', () => timer = setTimeout(openAdmin, 3000));
-        logo.addEventListener('mousedown', () => timer = setTimeout(openAdmin, 3000));
-        logo.addEventListener('touchend', () => clearTimeout(timer));
-        logo.addEventListener('mouseup', () => clearTimeout(timer));
-
-        function openAdmin() {
-            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
-            document.getElementById('data-editor').value = JSON.stringify(appData, null, 2);
-            document.getElementById('admin-panel').style.display = 'block';
-        }
-        function closeAdmin() { document.getElementById('admin-panel').style.display = 'none'; }
-
-        async function saveToGitHub() {
-            const token = document.getElementById('gh-token').value;
-            localStorage.setItem('gh_token', token);
-            const log = document.getElementById('status-log');
-            log.innerHTML = "Actualizando la base de datos en la nube...";
-            
-            try {
-                const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE}`, { headers: { 'Authorization': `token ${token}` } });
-                const fileData = await res.json();
-                let fullCode = decodeURIComponent(escape(atob(fileData.content)));
-                const dataStart = fullCode.indexOf('var appData =');
-                const dataEnd = fullCode.indexOf('};', dataStart) + 2;
-                const updatedCode = fullCode.substring(0, dataStart) + "var appData = " + document.getElementById('data-editor').value + ";" + fullCode.substring(dataEnd);
-
-                const updateRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE}`, {
-                    method: 'PUT',
-                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: "Update Data via Mobile App", content: btoa(unescape(encodeURIComponent(updatedCode))), sha: fileData.sha })
-                });
-
-                if(updateRes.ok) { log.innerHTML = "¡ÉXITO! Cierra el panel y refresca la app en 30 segundos."; setTimeout(() => location.reload(), 2000); }
-                else { log.innerHTML = "Error de sincronización. Revisa tu Token."; }
-            } catch (e) { log.innerHTML = "Error: " + e.message; }
-        }
-
-        window.onload = () => {
-            const tabsContainer = document.getElementById('tabs-container');
-            const categories = ['EURO', 'ESP', 'ENG', 'GER', 'ITA', 'FRA', 'NED'];
-            tabsContainer.innerHTML = categories.map((cat, i) => `<div class="tab ${i===0?'active':''}" onclick="render('${cat}', this)">${cat === 'EURO' ? 'EUROPA ★' : cat}</div>`).join('');
-            render('EURO');
-            const st = ["https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1920&q=80", "https://images.unsplash.com/photo-1596727147705-61a532a659bd?auto=format&fit=crop&w=1920&q=80"];
-            const img = new Image(); img.src = st[Math.floor(Math.random() * st.length)];
-            img.onload = () => document.body.style.backgroundImage = 'url(' + img.src + ')';
-        };
-    
-    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js'); }
+<div id="admin-panel">
+<div style="display:flex;justify-content:space-between;margin-bottom:20px">
+<h3 style="color:white;margin:0">MODO ADMIN</h3>
+<button onclick="closeAdmin()" style="background:none;color:white;border:none;font-weight:bold">CERRAR</button>
+</div>
+<p style="font-size:0.7rem;color:#888;margin-bottom:5px">Token GitHub:</p>
+<input type="password" id="gh-token" placeholder="ghp_...">
+<p style="font-size:0.7rem;color:#888;margin-bottom:5px">Datos JSON:</p>
+<textarea id="data-editor" style="height:350px"></textarea>
+<button class="save-btn" onclick="saveToGitHub()">GUARDAR Y ACTUALIZAR NUBE</button>
+<div id="status-log" style="font-size:0.75rem;margin-top:15px;color:#aaa;text-align:center"></div>
+</div>
+<div class="logo" id="main-logo" oncontextmenu="return false">FUTBOL <span>90</span></div>
+<div class="tabs" id="tabs-container"></div>
+<div class="container" id="slips-container"></div>
+<script>
+var GITHUB_REPO='SERPION7/F-TBOL-90';
+var GITHUB_FILE='futbol90_FINAL_V4/index.html';
+var appData={"EURO":[{"title":"TOP PICKS EUROPA","risk":"ALTA","odds":"3.20","matches":[{"name":"Arsenal FC vs Fulham FC","time":"17:30","confidence":"76%","tags":["1X2","Goles"],"analysis":"Arsenal en casa domina posesion y ritmo."},{"name":"CA Osasuna vs FC Barcelona","time":"20:00","confidence":"72%","tags":["1X2","Goles"],"analysis":"Barcelona genera bastante ataque fuera."},{"name":"FC Bayern Munich vs Heidenheim","time":"14:30","confidence":"81%","tags":["1X2","Goles"],"analysis":"Bayern se impone por volumen ofensivo."},{"name":"PSG vs Lorient","time":"17:00","confidence":"82%","tags":["1X2","Goles"],"analysis":"PSG mantiene superioridad ofensiva clara."},{"name":"Ajax vs PSV Eindhoven","time":"20:00","confidence":"66%","tags":["Ambos Marcan","Goles"],"analysis":"Clasico neerlandes de alto nivel ofensivo."}]}],"ESP":[{"title":"LA LIGA - HOY","risk":"MEDIA","odds":"2.80","matches":[{"name":"Villarreal CF vs Levante UD","time":"13:00","confidence":"74%","tags":["1X2","Goles"],"analysis":"Villarreal confirma supremacia en casa."},{"name":"Valencia CF vs Atletico Madrid","time":"15:15","confidence":"68%","tags":["1X2","Goles"],"analysis":"Atletico compite bien fuera en duelos cerrados."},{"name":"Alaves vs Athletic Club","time":"17:30","confidence":"63%","tags":["1X2","Ambos Marcan"],"analysis":"Derbi vasco tenso con equilibrio local."},{"name":"Osasuna vs FC Barcelona","time":"20:00","confidence":"72%","tags":["1X2","Goles"],"analysis":"Barcelona genera bastante ataque visitante."}]}],"ENG":[{"title":"PREMIER LEAGUE - HOY","risk":"MEDIA","odds":"2.50","matches":[{"name":"Brentford vs West Ham Utd","time":"15:00","confidence":"61%","tags":["Ambos Marcan","Goles"],"analysis":"Dos equipos irregulares con opciones en ambas areas."},{"name":"Newcastle Utd vs Brighton","time":"15:00","confidence":"69%","tags":["Ambos Marcan","Goles"],"analysis":"Newcastle en racha goleadora; Brighton marca fuera."},{"name":"Wolverhampton vs Sunderland","time":"15:00","confidence":"58%","tags":["1X2","Goles"],"analysis":"Wolves con ventaja local en duelo ajustado."},{"name":"Arsenal FC vs Fulham FC","time":"17:30","confidence":"76%","tags":["1X2","Goles"],"analysis":"Arsenal en casa domina posesion y ritmo."}]}],"GER":[{"title":"BUNDESLIGA - DESTACADOS","risk":"ALTA","odds":"2.10","matches":[{"name":"FC Bayern Munich vs Heidenheim","time":"14:30","confidence":"81%","tags":["1X2","Goles"],"analysis":"Bayern se impone por volumen ofensivo."},{"name":"Bayer Leverkusen vs RB Leipzig","time":"17:30","confidence":"64%","tags":["Ambos Marcan","Goles"],"analysis":"Cruce alto nivel; ambos generan muchas ocasiones."}]}],"ITA":[{"title":"SERIE A - DESTACADOS","risk":"MEDIA","odds":"2.30","matches":[{"name":"Como 1907 vs SSC Napoli","time":"17:00","confidence":"71%","tags":["1X2","Goles"],"analysis":"Napoli tiene mayor pegada y consistencia."},{"name":"Atalanta BC vs Genoa CFC","time":"19:45","confidence":"73%","tags":["1X2","Goles"],"analysis":"Atalanta en casa sostiene presion alta."}]}],"FRA":[{"title":"LIGUE 1 - DESTACADOS","risk":"ALTA","odds":"2.60","matches":[{"name":"PSG vs Lorient","time":"17:00","confidence":"82%","tags":["1X2","Goles"],"analysis":"PSG mantiene superioridad ofensiva clara."},{"name":"FC Metz vs AS Monaco","time":"19:00","confidence":"67%","tags":["1X2","Ambos Marcan"],"analysis":"Monaco compite arriba; Metz rasca en casa."}]}],"NED":[{"title":"EREDIVISIE - CLASICO","risk":"MEDIA","odds":"2.40","matches":[{"name":"AFC Ajax vs PSV Eindhoven","time":"20:00","confidence":"66%","tags":["Ambos Marcan","Goles"],"analysis":"Clasico neerlandes de alto nivel ofensivo."}]}]};
+function render(cat,el){if(el){document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});el.classList.add('active')}var container=document.getElementById('slips-container');var items=appData[cat]||[];if(items.length===0){container.innerHTML='<p style="text-align:center;padding:40px;color:#666;font-weight:bold">No hay partidos destacables hoy en esta liga.</p>';return}var html='';for(var i=0;i<items.length;i++){var c=items[i];var mh='';for(var j=0;j<c.matches.length;j++){var m=c.matches[j];var th='';for(var k=0;k<m.tags.length;k++){th+='<div class="tag">'+m.tags[k]+'</div>'}mh+='<div class="match-box"><div class="match-header"><span class="match-name"><span class="match-time">'+(m.time||'')+'</span>'+m.name+'</span>'+(m.confidence?'<span class="match-conf">'+m.confidence+'</span>':'')+'</div><div class="details">'+th+'</div>'+(m.analysis?'<div class="match-analysis">'+m.analysis+'</div>':'')+'</div>'}html+='<div class="bet-slip"><div class="slip-header"><span>'+c.title+'</span><span class="risk risk-'+c.risk+'">PROBABILIDAD: '+c.risk+'</span></div><div class="slip-body">'+mh+'</div><div class="slip-footer"><div><span class="odds-label">CUOTA TOTAL</span><span class="odds">'+c.odds+'</span></div><button class="btn">COPIAR BOLETO</button></div></div>'}container.innerHTML=html}
+var timer;var logo=document.getElementById('main-logo');logo.addEventListener('touchstart',function(){timer=setTimeout(openAdmin,3000)});logo.addEventListener('mousedown',function(){timer=setTimeout(openAdmin,3000)});logo.addEventListener('touchend',function(){clearTimeout(timer)});logo.addEventListener('mouseup',function(){clearTimeout(timer)});
+function openAdmin(){document.getElementById('gh-token').value='';document.getElementById('data-editor').value=JSON.stringify(appData,null,2);document.getElementById('admin-panel').style.display='block'}
+function closeAdmin(){document.getElementById('admin-panel').style.display='none'}
+async function saveToGitHub(){var token=document.getElementById('gh-token').value;var log=document.getElementById('status-log');log.innerHTML='Actualizando...';try{var res=await fetch('https://api.github.com/repos/'+GITHUB_REPO+'/contents/'+GITHUB_FILE,{headers:{'Authorization':'token '+token}});var fd=await res.json();var fc=decodeURIComponent(escape(atob(fd.content)));var ds=fc.indexOf('var appData=');var de=fc.indexOf('};',ds)+2;var uc=fc.substring(0,ds)+'var appData='+document.getElementById('data-editor').value+';'+fc.substring(de);var ur=await fetch('https://api.github.com/repos/'+GITHUB_REPO+'/contents/'+GITHUB_FILE,{method:'PUT',headers:{'Authorization':'token '+token,'Content-Type':'application/json'},body:JSON.stringify({message:'Update Data',content:btoa(unescape(encodeURIComponent(uc))),sha:fd.sha})});if(ur.ok){log.innerHTML='EXITO! Recarga en 30s';setTimeout(function(){location.reload()},2000)}else{log.innerHTML='Error. Revisa tu Token'}}catch(e){log.innerHTML='Error: '+e.message}}
+window.onload=function(){var tc=document.getElementById('tabs-container');var cats=['EURO','ESP','ENG','GER','ITA','FRA','NED'];var h='';for(var i=0;i<cats.length;i++){h+='<div class="tab '+(i===0?'active':'')+'" onclick="render(\''+cats[i]+'\',this)">'+(cats[i]==='EURO'?'EUROPA ★':cats[i])+'</div>'}tc.innerHTML=h;render('EURO');var st=["https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1920&q=80","https://images.unsplash.com/photo-1596727147705-61a532a659bd?auto=format&fit=crop&w=1920&q=80"];var img=new Image();img.src=st[Math.floor(Math.random()*st.length)];img.onload=function(){document.body.style.backgroundImage='url('+img.src+')'}}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
 </script>
 </body>
-</html>
+</html
