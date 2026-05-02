@@ -3,26 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FÚTBOL 90 | FINAL</title>
+    <title>FÚTBOL 90 | PRO ELITE</title>
     <style>
-        /* Sin fuentes externas para evitar esperas */
-        body { background: #050505; color: white; font-family: sans-serif; padding: 15px; }
-        .logo { font-size: 2.2rem; font-weight: 900; text-align: center; margin-bottom: 20px; color: #00ff88; }
+        body { background: #050505; color: white; font-family: sans-serif; padding: 15px; margin: 0; }
+        .logo { font-size: 2.2rem; font-weight: 900; text-align: center; padding: 25px 0; color: #00ff88; border-bottom: 1px solid #222; }
         
-        .tabs { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 20px; }
-        .tab { background: #1a1a1a; padding: 10px 15px; border-radius: 8px; white-space: nowrap; border: 1px solid #333; color: #888; font-size: 0.8rem; font-weight: bold; }
+        .tabs { display: flex; gap: 8px; overflow-x: auto; padding: 15px 5px; scrollbar-width: none; }
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab { background: #1a1a1a; padding: 10px 18px; border-radius: 12px; white-space: nowrap; border: 1px solid #333; color: #888; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
         .tab.active { background: #00ff88; color: black; border-color: #00ff88; }
         
-        .bet-slip { background: #111; border-radius: 12px; border: 1px solid #222; margin-bottom: 15px; border-left: 5px solid #00ff88; }
-        .slip-header { padding: 12px; font-weight: bold; background: #1a1a1a; font-size: 0.8rem; border-bottom: 1px solid #222; }
-        .slip-body { padding: 15px; }
-        .match-box { margin-bottom: 12px; border-bottom: 1px solid #222; padding-bottom: 8px; }
-        .match-name { font-weight: bold; display: block; margin-bottom: 5px; font-size: 0.85rem; }
-        .tag { display: inline-block; background: #222; padding: 4px 6px; border-radius: 4px; font-size: 0.65rem; color: #00ff88; margin-right: 5px; margin-bottom: 5px; }
+        .container { padding-top: 10px; }
+        .bet-slip { background: #111; border-radius: 15px; border: 1px solid #222; margin-bottom: 20px; border-left: 5px solid #00ff88; }
+        .slip-header { padding: 12px 15px; font-weight: 900; background: #1a1a1a; font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; }
+        .risk { font-size: 0.6rem; padding: 3px 7px; border-radius: 5px; font-weight: 900; }
+        .risk-ALTA { background: #ff3e3e; color: white; }
+        .risk-MEDIA { background: #ffd700; color: black; }
+        .risk-BAJA { background: #00ff88; color: black; }
         
-        .slip-footer { padding: 12px; background: #000; display: flex; justify-content: space-between; align-items: center; }
-        .odds { font-size: 1.3rem; font-weight: bold; color: #00ff88; }
-        .btn { background: #00ff88; color: black; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold; font-size: 0.7rem; }
+        .slip-body { padding: 15px; }
+        .match-box { margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .match-name { font-weight: 900; display: block; margin-bottom: 8px; font-size: 0.85rem; color: #fff; text-transform: uppercase; }
+        
+        .details { display: flex; flex-wrap: wrap; gap: 5px; }
+        .tag { background: #1a1a1a; padding: 5px 8px; border-radius: 6px; font-size: 0.6rem; color: #00ff88; border: 1px solid #333; font-weight: bold; }
+        
+        .slip-footer { padding: 15px; background: #000; display: flex; justify-content: space-between; align-items: center; border-radius: 0 0 15px 15px; }
+        .odds-label { font-size: 0.6rem; color: #888; display: block; }
+        .odds { font-size: 1.5rem; font-weight: 900; color: #00ff88; }
+        .btn { background: #00ff88; color: black; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 900; font-size: 0.75rem; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -30,55 +39,75 @@
     <div class="logo">FÚTBOL 90</div>
 
     <div class="tabs">
-        <div class="tab active" id="tab-euro" onclick="render('EURO')">EUROPA</div>
-        <div class="tab" id="tab-esp" onclick="render('ESP')">ESPAÑA</div>
-        <div class="tab" id="tab-eng" onclick="render('ENG')">INGLATERRA</div>
+        <div id="tab-EURO" class="tab active" onclick="render('EURO')">EUROPA ★</div>
+        <div id="tab-ESP" class="tab" onclick="render('ESP')">ESPAÑA</div>
+        <div id="tab-ENG" class="tab" onclick="render('ENG')">INGLATERRA</div>
+        <div id="tab-GER" class="tab" onclick="render('GER')">ALEMANIA</div>
+        <div id="tab-ITA" class="tab" onclick="render('ITA')">ITALIA</div>
+        <div id="tab-FRA" class="tab" onclick="render('FRA')">FRANCIA</div>
+        <div id="tab-NED" class="tab" onclick="render('NED')">HOLANDA</div>
     </div>
 
-    <!-- El contenido inicial ya está aquí escrito por si el JS falla -->
-    <div id="slips-container">
-        <div class="bet-slip">
-            <div class="slip-header">COMBO 5 ESTRELLAS (CARGA SEGURA)</div>
-            <div class="slip-body">
-                <div class="match-box">
-                    <span class="match-name">Barca vs Osasuna</span>
-                    <div class="tag">1X2: 1</div><div class="tag">Remates: Barca</div>
-                </div>
-                <div class="match-box">
-                    <span class="match-name">Arsenal vs Fulham</span>
-                    <div class="tag">1X2: 1</div><div class="tag">Goles: +1.5</div>
-                </div>
-            </div>
-            <div class="slip-footer">
-                <div class="odds">38.20</div>
-                <button class="btn">COPIAR</button>
-            </div>
-        </div>
-    </div>
+    <div class="container" id="slips-container"></div>
 
     <script>
         var data = {
             'EURO': [
-                { title: "COMBO 5 ESTRELLAS", odds: "38.20", matches: [
-                    { name: "Barca vs Osasuna", tags: ["1X2: 1", "Remates: Barca"] },
-                    { name: "Arsenal vs Fulham", tags: ["1X2: 1", "Goles: +1.5"] },
-                    { name: "Ajax vs PSV", tags: ["1X2: X", "Goles: +2.5"] }
+                { title: "COMBO 5 ESTRELLAS (MIX)", odds: "38.20", risk: "ALTA", matches: [
+                    { name: "FC Barcelona vs CA Osasuna", tags: ["1X2: 1", "Remates: Barcelona"] },
+                    { name: "Arsenal FC vs Fulham FC", tags: ["1X2: 1", "Goles: +1.5"] },
+                    { name: "Atalanta BC vs Genoa CFC", tags: ["1X2: 1", "Corners: Atalanta"] },
+                    { name: "Bayer 04 Leverkusen vs RB Leipzig", tags: ["1X2: X2", "Tarjetas: Leverkusen"] },
+                    { name: "AFC Ajax vs PSV Eindhoven", tags: ["1X2: X", "Ambos Marcan: SI"] }
                 ]}
             ],
             'ESP': [
-                { title: "TRIPLETE LA LIGA", odds: "6.45", matches: [
-                    { name: "Villarreal vs Levante", tags: ["1X2: 1", "Goles: +2.5"] },
-                    { name: "Valencia vs Atleti", tags: ["X2", "Tarjetas: Valencia"] }
+                { title: "JORNADA LA LIGA", odds: "6.45", risk: "MEDIA", matches: [
+                    { name: "FC Barcelona vs CA Osasuna", tags: ["1X2: 1", "Remates: Barcelona", "Ambos: NO"] },
+                    { name: "Villarreal CF vs Levante UD", tags: ["1X2: 1", "Goles: +2.5", "Corners: Villarreal"] },
+                    { name: "Valencia CF vs Atlético de Madrid", tags: ["1X2: X2", "Tarjetas: Valencia", "Goles: +1.5"] }
+                ]}
+            ],
+            'ENG': [
+                { title: "PREMIER LEAGUE", odds: "5.20", risk: "MEDIA", matches: [
+                    { name: "Arsenal FC vs Fulham FC", tags: ["1X2: 1", "Remates: Arsenal"] },
+                    { name: "Newcastle United vs Brighton", tags: ["1X2: 1", "Goles: +2.5", "Corners: Brighton"] },
+                    { name: "Brentford FC vs West Ham United", tags: ["Ambos Marcan: SI", "Tarjetas: West Ham"] }
+                ]}
+            ],
+            'GER': [
+                { title: "BUNDESLIGA", odds: "4.80", risk: "BAJA", matches: [
+                    { name: "FC Bayern München vs Heidenheim", tags: ["1X2: 1", "Remates Puerta: Bayern"] },
+                    { name: "Bayer 04 Leverkusen vs RB Leipzig", tags: ["1X2: X2", "Ambos Marcan: SI"] },
+                    { name: "1. FC Union Berlin vs 1. FC Köln", tags: ["Goles: -2.5"] }
+                ]}
+            ],
+            'ITA': [
+                { title: "SERIE A", odds: "4.15", risk: "MEDIA", matches: [
+                    { name: "Atalanta BC vs Genoa CFC", tags: ["1X2: 1", "Corners: Atalanta"] },
+                    { name: "Juventus FC vs Hellas Verona FC", tags: ["1X2: 1", "Goles: +2.5"] },
+                    { name: "ACF Fiorentina vs US Sassuolo", tags: ["Ambos Marcan: SI"] }
+                ]}
+            ],
+            'FRA': [
+                { title: "LIGUE 1", odds: "3.90", risk: "BAJA", matches: [
+                    { name: "Paris Saint-Germain vs FC Lorient", tags: ["1X2: 1", "Remates: PSG"] },
+                    { name: "OGC Nice vs RC Lens", tags: ["1X2: X", "Goles: +1.5"] },
+                    { name: "FC Metz vs AS Monaco", tags: ["1X2: 2"] }
+                ]}
+            ],
+            'NED': [
+                { title: "EREDIVISIE", odds: "2.85", risk: "MEDIA", matches: [
+                    { name: "AFC Ajax vs PSV Eindhoven", tags: ["1X2: X", "Goles: +2.5"] },
+                    { name: "FC Utrecht vs NAC Breda", tags: ["1X2: 1"] }
                 ]}
             ]
         };
 
         function render(cat) {
-            // Cambiar pestaña activa
             var tabs = document.getElementsByClassName('tab');
-            for(var t=0; t<tabs.length; t++) { tabs[t].style.background = '#1a1a1a'; tabs[t].style.color = '#888'; }
-            var activeTab = document.getElementById('tab-' + cat.toLowerCase());
-            if(activeTab) { activeTab.style.background = '#00ff88'; activeTab.style.color = 'black'; }
+            for(var i=0; i<tabs.length; i++) { tabs[i].className = 'tab'; }
+            document.getElementById('tab-' + cat).className = 'tab active';
 
             var container = document.getElementById('slips-container');
             var items = data[cat] || [];
@@ -87,22 +116,22 @@
             for(var i=0; i<items.length; i++) {
                 var it = items[i];
                 html += '<div class="bet-slip">';
-                html += '<div class="slip-header">' + it.title + '</div>';
+                html += '<div class="slip-header"><span>' + it.title + '</span><span class="risk risk-' + it.risk + '">' + it.risk + '</span></div>';
                 html += '<div class="slip-body">';
                 for(var j=0; j<it.matches.length; j++) {
-                    html += '<div class="match-box"><span class="match-name">' + it.matches[j].name + '</span>';
+                    html += '<div class="match-box"><span class="match-name">' + it.matches[j].name + '</span><div class="details">';
                     for(var k=0; k<it.matches[j].tags.length; k++) {
                         html += '<div class="tag">' + it.matches[j].tags[k] + '</div>';
                     }
-                    html += '</div>';
+                    html += '</div></div>';
                 }
-                html += '</div><div class="slip-footer"><div class="odds">' + it.odds + '</div><button class="btn">COPIAR</button></div></div>';
+                html += '</div><div class="slip-footer"><div><span class="odds-label">CUOTA TOTAL</span><span class="odds">' + it.odds + '</span></div><button class="btn">COPIAR</button></div></div>';
             }
             container.innerHTML = html;
         }
 
-        // Ejecutar inmediatamente
         render('EURO');
     </script>
 </body>
 </html>
+
