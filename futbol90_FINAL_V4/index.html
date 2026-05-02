@@ -15,11 +15,11 @@
         
         .container { padding-top: 10px; }
         .bet-slip { background: #111; border-radius: 15px; border: 1px solid #222; margin-bottom: 20px; border-left: 5px solid #00ff88; }
-        .slip-header { padding: 12px 15px; font-weight: 900; background: #1a1a1a; font-size: 0.75rem; display: flex; justify-content: space-between; align-items: center; }
-        .risk { font-size: 0.6rem; padding: 3px 7px; border-radius: 5px; font-weight: 900; }
-        .risk-ALTA { background: #ff3e3e; color: white; }
+        .slip-header { padding: 12px 15px; font-weight: 900; background: #1a1a1a; font-size: 0.7rem; display: flex; justify-content: space-between; align-items: center; }
+        .risk { font-size: 0.55rem; padding: 4px 8px; border-radius: 5px; font-weight: 900; letter-spacing: 0.5px; }
+        .risk-ALTA { background: #00ff88; color: black; }
         .risk-MEDIA { background: #ffd700; color: black; }
-        .risk-BAJA { background: #00ff88; color: black; }
+        .risk-BAJA { background: #ff3e3e; color: white; }
         
         .slip-body { padding: 15px; }
         .match-box { margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
@@ -53,17 +53,17 @@
     <script>
         var data = {
             'EURO': [
-                { title: "COMBO 5 ESTRELLAS (MIX)", odds: "38.20", risk: "ALTA", matches: [
+                { title: "COMBO 5 ESTRELLAS (MIX)", odds: "38.20", risk: "BAJA", matches: [
                     { name: "FC Barcelona vs CA Osasuna", tags: ["1X2: 1", "Remates: Barcelona"] },
                     { name: "Arsenal FC vs Fulham FC", tags: ["1X2: 1", "Goles: +1.5"] },
                     { name: "Atalanta BC vs Genoa CFC", tags: ["1X2: 1", "Corners: Atalanta"] },
                     { name: "Bayer 04 Leverkusen vs RB Leipzig", tags: ["1X2: X2", "Tarjetas: Leverkusen"] },
-                    { name: "AFC Ajax vs PSV Eindhoven", tags: ["1X2: X", "Ambos Marcan: SI"] }
+                    { name: "AFC Ajax vs PSV Eindhoven", tags: ["1X2: X", "Ambos Marcarán: SÍ"] }
                 ]}
             ],
             'ESP': [
                 { title: "JORNADA LA LIGA", odds: "6.45", risk: "MEDIA", matches: [
-                    { name: "FC Barcelona vs CA Osasuna", tags: ["1X2: 1", "Remates: Barcelona", "Ambos: NO"] },
+                    { name: "FC Barcelona vs CA Osasuna", tags: ["1X2: 1", "Remates: Barcelona", "Ambos Marcarán: NO"] },
                     { name: "Villarreal CF vs Levante UD", tags: ["1X2: 1", "Goles: +2.5", "Corners: Villarreal"] },
                     { name: "Valencia CF vs Atlético de Madrid", tags: ["1X2: X2", "Tarjetas: Valencia", "Goles: +1.5"] }
                 ]}
@@ -72,13 +72,13 @@
                 { title: "PREMIER LEAGUE", odds: "5.20", risk: "MEDIA", matches: [
                     { name: "Arsenal FC vs Fulham FC", tags: ["1X2: 1", "Remates: Arsenal"] },
                     { name: "Newcastle United vs Brighton", tags: ["1X2: 1", "Goles: +2.5", "Corners: Brighton"] },
-                    { name: "Brentford FC vs West Ham United", tags: ["Ambos Marcan: SI", "Tarjetas: West Ham"] }
+                    { name: "Brentford FC vs West Ham United", tags: ["Ambos Marcarán: SÍ", "Tarjetas: West Ham"] }
                 ]}
             ],
             'GER': [
-                { title: "BUNDESLIGA", odds: "4.80", risk: "BAJA", matches: [
+                { title: "BUNDESLIGA", odds: "4.80", risk: "ALTA", matches: [
                     { name: "FC Bayern München vs Heidenheim", tags: ["1X2: 1", "Remates Puerta: Bayern"] },
-                    { name: "Bayer 04 Leverkusen vs RB Leipzig", tags: ["1X2: X2", "Ambos Marcan: SI"] },
+                    { name: "Bayer 04 Leverkusen vs RB Leipzig", tags: ["1X2: X2", "Ambos Marcarán: SÍ"] },
                     { name: "1. FC Union Berlin vs 1. FC Köln", tags: ["Goles: -2.5"] }
                 ]}
             ],
@@ -86,11 +86,11 @@
                 { title: "SERIE A", odds: "4.15", risk: "MEDIA", matches: [
                     { name: "Atalanta BC vs Genoa CFC", tags: ["1X2: 1", "Corners: Atalanta"] },
                     { name: "Juventus FC vs Hellas Verona FC", tags: ["1X2: 1", "Goles: +2.5"] },
-                    { name: "ACF Fiorentina vs US Sassuolo", tags: ["Ambos Marcan: SI"] }
+                    { name: "ACF Fiorentina vs US Sassuolo", tags: ["Ambos Marcarán: SÍ"] }
                 ]}
             ],
             'FRA': [
-                { title: "LIGUE 1", odds: "3.90", risk: "BAJA", matches: [
+                { title: "LIGUE 1", odds: "3.90", risk: "ALTA", matches: [
                     { name: "Paris Saint-Germain vs FC Lorient", tags: ["1X2: 1", "Remates: PSG"] },
                     { name: "OGC Nice vs RC Lens", tags: ["1X2: X", "Goles: +1.5"] },
                     { name: "FC Metz vs AS Monaco", tags: ["1X2: 2"] }
@@ -116,7 +116,7 @@
             for(var i=0; i<items.length; i++) {
                 var it = items[i];
                 html += '<div class="bet-slip">';
-                html += '<div class="slip-header"><span>' + it.title + '</span><span class="risk risk-' + it.risk + '">' + it.risk + '</span></div>';
+                html += '<div class="slip-header"><span>' + it.title + '</span><span class="risk risk-' + it.risk + '">PROBABILIDAD: ' + it.risk + '</span></div>';
                 html += '<div class="slip-body">';
                 for(var j=0; j<it.matches.length; j++) {
                     html += '<div class="match-box"><span class="match-name">' + it.matches[j].name + '</span><div class="details">';
@@ -134,4 +134,5 @@
     </script>
 </body>
 </html>
+
 
