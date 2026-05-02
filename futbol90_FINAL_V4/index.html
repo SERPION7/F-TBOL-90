@@ -3,32 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FÚTBOL 90 | PRO ELITE</title>
+    <title>FÚTBOL 90 | ELITE STADIUM</title>
     <style>
-        body { background: #050505; color: white; font-family: sans-serif; padding: 15px; margin: 0; }
-        .logo { font-size: 2.2rem; font-weight: 900; text-align: center; padding: 25px 0; color: #00ff88; border-bottom: 1px solid #222; }
+        /* Estilo base seguro */
+        body { 
+            background: #070e11; 
+            color: white; 
+            font-family: sans-serif; 
+            padding: 15px; 
+            margin: 0;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background-image 1.5s ease-in-out;
+        }
+
+        /* Capa de protección para legibilidad */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.9) 100%);
+            z-index: -1;
+        }
+
+        .logo { font-size: 2.2rem; font-weight: 900; text-align: center; padding: 25px 0; color: #00ff88; border-bottom: 1px solid rgba(255,255,255,0.1); }
         
         .tabs { display: flex; gap: 8px; overflow-x: auto; padding: 15px 5px; scrollbar-width: none; }
         .tabs::-webkit-scrollbar { display: none; }
-        .tab { background: #1a1a1a; padding: 10px 18px; border-radius: 12px; white-space: nowrap; border: 1px solid #333; color: #888; font-size: 0.75rem; font-weight: bold; cursor: pointer; }
+        .tab { background: rgba(26,26,26,0.8); padding: 10px 18px; border-radius: 12px; white-space: nowrap; border: 1px solid #333; color: #888; font-size: 0.75rem; font-weight: bold; cursor: pointer; backdrop-filter: blur(5px); }
         .tab.active { background: #00ff88; color: black; border-color: #00ff88; }
         
-        .container { padding-top: 10px; }
-        .bet-slip { background: #111; border-radius: 15px; border: 1px solid #222; margin-bottom: 20px; border-left: 5px solid #00ff88; }
-        .slip-header { padding: 12px 15px; font-weight: 900; background: #1a1a1a; font-size: 0.7rem; display: flex; justify-content: space-between; align-items: center; }
-        .risk { font-size: 0.55rem; padding: 4px 8px; border-radius: 5px; font-weight: 900; letter-spacing: 0.5px; }
+        .container { padding-top: 10px; position: relative; z-index: 1; }
+        .bet-slip { background: rgba(17,17,17,0.8); backdrop-filter: blur(15px); border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; border-left: 5px solid #00ff88; }
+        .slip-header { padding: 12px 15px; font-weight: 900; background: rgba(26,26,26,0.5); font-size: 0.7rem; display: flex; justify-content: space-between; align-items: center; }
+        .risk { font-size: 0.55rem; padding: 4px 8px; border-radius: 5px; font-weight: 900; }
         .risk-ALTA { background: #00ff88; color: black; }
         .risk-MEDIA { background: #ffd700; color: black; }
         .risk-BAJA { background: #ff3e3e; color: white; }
         
         .slip-body { padding: 15px; }
-        .match-box { margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .match-box { margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
         .match-name { font-weight: 900; display: block; margin-bottom: 8px; font-size: 0.85rem; color: #fff; text-transform: uppercase; }
         
         .details { display: flex; flex-wrap: wrap; gap: 5px; }
-        .tag { background: #1a1a1a; padding: 5px 8px; border-radius: 6px; font-size: 0.6rem; color: #00ff88; border: 1px solid #333; font-weight: bold; }
+        .tag { background: rgba(26,26,26,0.5); padding: 5px 8px; border-radius: 6px; font-size: 0.6rem; color: #00ff88; border: 1px solid rgba(255,255,255,0.1); font-weight: bold; }
         
-        .slip-footer { padding: 15px; background: #000; display: flex; justify-content: space-between; align-items: center; border-radius: 0 0 15px 15px; }
+        .slip-footer { padding: 15px; background: rgba(0,0,0,0.5); display: flex; justify-content: space-between; align-items: center; border-radius: 0 0 15px 15px; }
         .odds-label { font-size: 0.6rem; color: #888; display: block; }
         .odds { font-size: 1.5rem; font-weight: 900; color: #00ff88; }
         .btn { background: #00ff88; color: black; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 900; font-size: 0.75rem; cursor: pointer; }
@@ -71,35 +92,30 @@
             'ENG': [
                 { title: "PREMIER LEAGUE", odds: "5.20", risk: "MEDIA", matches: [
                     { name: "Arsenal FC vs Fulham FC", tags: ["1X2: 1", "Remates: Arsenal"] },
-                    { name: "Newcastle United vs Brighton", tags: ["1X2: 1", "Goles: +2.5", "Corners: Brighton"] },
-                    { name: "Brentford FC vs West Ham United", tags: ["Ambos Marcarán: SÍ", "Tarjetas: West Ham"] }
+                    { name: "Newcastle United vs Brighton", tags: ["1X2: 1", "Goles: +2.5", "Corners: Brighton"] }
                 ]}
             ],
             'GER': [
                 { title: "BUNDESLIGA", odds: "4.80", risk: "ALTA", matches: [
-                    { name: "FC Bayern München vs Heidenheim", tags: ["1X2: 1", "Remates Puerta: Bayern"] },
-                    { name: "Bayer 04 Leverkusen vs RB Leipzig", tags: ["1X2: X2", "Ambos Marcarán: SÍ"] },
-                    { name: "1. FC Union Berlin vs 1. FC Köln", tags: ["Goles: -2.5"] }
+                    { name: "FC Bayern München vs Heidenheim", tags: ["1X2: 1", "Remates: Bayern"] },
+                    { name: "Bayer 04 Leverkusen vs RB Leipzig", tags: ["1X2: X2", "Ambos Marcarán: SÍ"] }
                 ]}
             ],
             'ITA': [
                 { title: "SERIE A", odds: "4.15", risk: "MEDIA", matches: [
                     { name: "Atalanta BC vs Genoa CFC", tags: ["1X2: 1", "Corners: Atalanta"] },
-                    { name: "Juventus FC vs Hellas Verona FC", tags: ["1X2: 1", "Goles: +2.5"] },
-                    { name: "ACF Fiorentina vs US Sassuolo", tags: ["Ambos Marcarán: SÍ"] }
+                    { name: "Juventus FC vs Hellas Verona FC", tags: ["1X2: 1", "Goles: +2.5"] }
                 ]}
             ],
             'FRA': [
                 { title: "LIGUE 1", odds: "3.90", risk: "ALTA", matches: [
                     { name: "Paris Saint-Germain vs FC Lorient", tags: ["1X2: 1", "Remates: PSG"] },
-                    { name: "OGC Nice vs RC Lens", tags: ["1X2: X", "Goles: +1.5"] },
-                    { name: "FC Metz vs AS Monaco", tags: ["1X2: 2"] }
+                    { name: "OGC Nice vs RC Lens", tags: ["1X2: X", "Goles: +1.5"] }
                 ]}
             ],
             'NED': [
                 { title: "EREDIVISIE", odds: "2.85", risk: "MEDIA", matches: [
-                    { name: "AFC Ajax vs PSV Eindhoven", tags: ["1X2: X", "Goles: +2.5"] },
-                    { name: "FC Utrecht vs NAC Breda", tags: ["1X2: 1"] }
+                    { name: "AFC Ajax vs PSV Eindhoven", tags: ["1X2: X", "Goles: +2.5"] }
                 ]}
             ]
         };
@@ -107,7 +123,8 @@
         function render(cat) {
             var tabs = document.getElementsByClassName('tab');
             for(var i=0; i<tabs.length; i++) { tabs[i].className = 'tab'; }
-            document.getElementById('tab-' + cat).className = 'tab active';
+            var t = document.getElementById('tab-' + cat);
+            if(t) t.className = 'tab active';
 
             var container = document.getElementById('slips-container');
             var items = data[cat] || [];
@@ -130,9 +147,24 @@
             container.innerHTML = html;
         }
 
+        // 1. Renderizar datos primero (INSTANTÁNEO)
         render('EURO');
+
+        // 2. Cargar estadios por detrás (SIN BLOQUEAR)
+        var stadiums = [
+            "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1920&q=80",
+            "https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&w=1920&q=80",
+            "https://images.unsplash.com/photo-1596727147705-61a532a659bd?auto=format&fit=crop&w=1920&q=80",
+            "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1920&q=80"
+        ];
+        var img = new Image();
+        img.src = stadiums[Math.floor(Math.random() * stadiums.length)];
+        img.onload = function() {
+            document.body.style.backgroundImage = 'url(' + img.src + ')';
+        };
     </script>
 </body>
 </html>
+
 
 
