@@ -64,9 +64,45 @@
 
         // DATOS INICIALES
         var appData = {
-            'EURO': [{ title: "COMBO 5 ESTRELLAS", odds: "38.20", risk: "BAJA", matches: [{ name: "FC BARCELONA vs CA OSASUNA", tags: ["1X2: 1", "AMBOS MARCARÁN: NO"] }, { name: "ARSENAL FC vs FULHAM FC", tags: ["1X2: 1", "GOLES: +1.5"] }] }],
-            'ESP': [{ title: "LA LIGA", odds: "6.45", risk: "MEDIA", matches: [{ name: "FC BARCELONA vs CA OSASUNA", tags: ["1X2: 1"] }] }]
-        };
+  "EURO": [
+    {
+      "title": "COMBO 5 ESTRELLAS",
+      "odds": "38.20",
+      "risk": "BAJA",
+      "matches": [
+        {
+          "name": "FC BARCELONA vs CA OSASUNA",
+          "tags": [
+            "1X2: 1",
+            "AMBOS MARCARÁN: NO"
+          ]
+        },
+        {
+          "name": "ARSENAL FC vs FULHAM FC",
+          "tags": [
+            "1X2: 1",
+            "GOLES: +1.5"
+          ]
+        }
+      ]
+    }
+  ],
+  "ESP": [
+    {
+      "title": "LA LIGA",
+      "odds": "6.45",
+      "risk": "MEDIA",
+      "matches": [
+        {
+          "name": "FC BARCELONA vs CA OSASUNA",
+          "tags": [
+            "1X2: 1"
+          ]
+        }
+      ]
+    }
+  ]
+};
 
         function render(cat, el) {
             if(el) { document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); el.classList.add('active'); }
