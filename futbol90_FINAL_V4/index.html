@@ -75,7 +75,244 @@
         const GITHUB_REPO = 'SERPION7/F-TBOL-90';
         const GITHUB_FILE = 'futbol90_FINAL_V4/index.html';
 
-        var appData = {"ESP":[{"name":"Villarreal CF vs Levante UD","time":"13:00","confidence":"74%","tags":["1X2","Goles"],"analysis":"Villarreal ya ganó hoy 5-1; mercado invalidado como previa, favorito confirmado."},{"name":"Valencia CF vs Atlético de Madrid","time":"15:15","confidence":"68%","tags":["1X2","Goles"],"analysis":"Partido ya en juego o reciente; Atlético suele competir bien en duelos cerrados."},{"name":"Deportivo Alavés vs Athletic Club","time":"17:30","confidence":"63%","tags":["1X2","Ambos Marcan"],"analysis":"Derbi vasco tenso; Athletic competitivo, Alavés local eleva equilibrio del choque."},{"name":"CA Osasuna vs FC Barcelona","time":"20:00","confidence":"72%","tags":["1X2","Goles"],"analysis":"Barcelona suele generar volumen ofensivo alto; Osasuna compite mejor en casa."}],"ENG":[{"name":"Brentford FC vs West Ham United","time":"15:00","confidence":"61%","tags":["Ambos Marcan","Goles"],"analysis":"Dos equipos irregulares; perfiles ofensivos favorecen ocasiones en ambas áreas."},{"name":"Newcastle United vs Brighton & Hove Albion","time":"15:00","confidence":"69%","tags":["Ambos Marcan","Goles"],"analysis":"Newcastle llega con tendencia goleadora; Brighton también suele marcar fuera."},{"name":"Wolverhampton Wanderers vs Sunderland AFC","time":"15:00","confidence":"58%","tags":["1X2","Goles"],"analysis":"Wolves parte con ligera ventaja local; duelo de margen corto esperado."},{"name":"Arsenal FC vs Fulham FC","time":"17:30","confidence":"76%","tags":["1X2","Goles"],"analysis":"Arsenal en casa suele dominar posesión, tiros y ritmo competitivo."}],"GER":[{"name":"FC Bayern Munich vs 1. FC Heidenheim","time":"14:30","confidence":"81%","tags":["1X2","Goles"],"analysis":"Bayern suele imponerse por volumen ofensivo y profundidad de plantilla."},{"name":"Bayer 04 Leverkusen vs RB Leipzig","time":"17:30","confidence":"64%","tags":["Ambos Marcan","Goles"],"analysis":"Cruce de alto nivel; ambos tienen recursos para producir varias ocasiones."}],"ITA":[{"name":"Como 1907 vs SSC Napoli","time":"17:00","confidence":"71%","tags":["1X2","Goles"],"analysis":"Napoli destaca arriba de la tabla; mayor pegada y consistencia competitiva."},{"name":"Atalanta BC vs Genoa CFC","time":"19:45","confidence":"73%","tags":["1X2","Goles"],"analysis":"Atalanta en casa suele sostener presión alta y volumen ofensivo notable."}],"FRA":[{"name":"Paris Saint-Germain vs FC Lorient","time":"17:00","confidence":"82%","tags":["1X2","Goles"],"analysis":"PSG mantiene superioridad individual y ofensiva frente a rivales menores."},{"name":"FC Metz vs AS Monaco","time":"19:00","confidence":"67%","tags":["1X2","Ambos Marcan"],"analysis":"Monaco suele competir arriba; Metz local puede encontrar ocasiones aisladas."}],"NED":[{"name":"AFC Ajax vs PSV Eindhoven","time":"20:00","confidence":"66%","tags":["Ambos Marcan","Goles"],"analysis":"Choque grande neerlandés; calidad ofensiva bilateral sugiere partido abierto."}],"EURO":[{"name":"Arsenal FC vs Fulham FC","time":"17:30","confidence":"76%","tags":["1X2","Goles"],"analysis":"Arsenal en casa suele dominar posesión, tiros y ritmo competitivo."},{"name":"CA Osasuna vs FC Barcelona","time":"20:00","confidence":"72%","tags":["1X2","Goles"],"analysis":"Barcelona suele generar volumen ofensivo alto; Osasuna compite mejor en casa."},{"name":"FC Bayern Munich vs 1. FC Heidenheim","time":"14:30","confidence":"81%","tags":["1X2","Goles"],"analysis":"Bayern suele imponerse por volumen ofensivo y profundidad de plantilla."},{"name":"Paris Saint-Germain vs FC Lorient","time":"17:00","confidence":"82%","tags":["1X2","Goles"],"analysis":"PSG mantiene superioridad individual y ofensiva frente a rivales menores."},{"name":"AFC Ajax vs PSV Eindhoven","time":"20:00","confidence":"66%","tags":["Ambos Marcan","Goles"],"analysis":"Choque grande neerlandés; calidad ofensiva bilateral sugiere partido abierto."}]};
+        var appData = <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FÚTBOL 90</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:#111a2b;
+      --card:#162238;
+      --line:#23324d;
+      --text:#f3f7ff;
+      --muted:#9db0d0;
+      --accent:#00d26a;
+      --accent2:#12a4ff;
+      --danger:#ff5d73;
+      --warn:#ffbf47;
+      --shadow:0 10px 30px rgba(0,0,0,.28);
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(180deg,#07101c,#0b1220 35%,#0f1728);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+    body{min-height:100vh}
+    .app{max-width:460px;margin:0 auto;padding:16px 14px 28px}
+    .top{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 14px 10px;border-radius:22px;
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.06);
+      box-shadow:var(--shadow);
+      position:sticky;top:0;backdrop-filter:blur(8px);z-index:10
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{
+      width:46px;height:46px;border-radius:14px;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.18), transparent 28%),
+        linear-gradient(135deg,#00d26a,#0b8cff);
+      display:grid;place-items:center;box-shadow:var(--shadow);font-weight:900
+    }
+    .logo span{font-size:18px;color:white}
+    .brand h1{margin:0;font-size:20px;letter-spacing:.4px}
+    .brand p{margin:2px 0 0;color:var(--muted);font-size:12px}
+    .status{
+      font-size:12px;color:#06130d;background:var(--accent);
+      padding:8px 10px;border-radius:999px;font-weight:800
+    }
+    .hero{
+      margin-top:14px;padding:16px;border-radius:24px;background:
+      linear-gradient(135deg, rgba(0,210,106,.18), rgba(18,164,255,.14)),
+      var(--panel);
+      border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow)
+    }
+    .hero h2{margin:0 0 8px;font-size:18px}
+    .hero p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+    .tabs{
+      display:grid;grid-template-columns:repeat(7,1fr);gap:8px;
+      margin:14px 0 16px
+    }
+    .tab{
+      border:none;border-radius:14px;background:var(--panel);color:var(--muted);
+      padding:10px 0;font-weight:800;font-size:12px;border:1px solid rgba(255,255,255,.06)
+    }
+    .tab.active{background:linear-gradient(135deg,#00d26a,#0ea5ff);color:#04120c}
+    .section-title{
+      display:flex;justify-content:space-between;align-items:center;
+      margin:18px 2px 10px
+    }
+    .section-title h3{margin:0;font-size:15px;letter-spacing:.4px}
+    .section-title span{color:var(--muted);font-size:12px}
+    .match-list{display:grid;gap:12px}
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.015)),var(--card);
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:20px;padding:14px;box-shadow:var(--shadow)
+    }
+    .row{display:flex;justify-content:space-between;gap:10px}
+    .league{
+      font-size:11px;font-weight:900;letter-spacing:.8px;color:#09120e;
+      background:linear-gradient(135deg,#00d26a,#7fffbc);padding:6px 10px;border-radius:999px
+    }
+    .time{
+      font-size:12px;font-weight:800;color:#071019;background:#ddecff;padding:6px 10px;border-radius:999px
+    }
+    .teams{margin:12px 0 10px;font-size:17px;line-height:1.28;font-weight:900}
+    .meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+    .confidence{font-size:13px;color:var(--warn);font-weight:900}
+    .tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tag{
+      font-size:11px;padding:7px 9px;border-radius:999px;
+      background:rgba(18,164,255,.12);color:#7dcbff;border:1px solid rgba(18,164,255,.25);font-weight:800
+    }
+    .analysis{
+      color:var(--muted);font-size:13px;line-height:1.45;
+      border-top:1px solid rgba(255,255,255,.06);padding-top:10px
+    }
+    .empty,.error{
+      padding:16px;border-radius:18px;background:var(--panel);
+      border:1px dashed rgba(255,255,255,.12);color:var(--muted);text-align:center
+    }
+    .error{color:#ffd5db;border-color:rgba(255,93,115,.35);background:rgba(255,93,115,.08)}
+    .footer-space{height:12px}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div class="brand">
+        <div class="logo"><span>90</span></div>
+        <div>
+          <h1>FÚTBOL 90</h1>
+          <p>Partidos del día y picks rápidos</p>
+        </div>
+      </div>
+      <div class="status" id="statusBadge">OK</div>
+    </header>
+
+    <section class="hero">
+      <h2>Agenda deportiva de hoy</h2>
+      <p>Todo va embebido dentro del HTML para evitar pantalla negra. No usa localStorage ni fetch externo.</p>
+    </section>
+
+    <nav class="tabs" id="tabs"></nav>
+
+    <section id="content"></section>
+    <div class="footer-space"></div>
+  </main>
+
+  <script>
+    const DATA = {
+      "ESP":[
+        {"name":"Villarreal CF vs Levante UD","time":"13:00","confidence":"74%","tags":["1X2","Goles"],"analysis":"Villarreal ya ganó hoy 5-1; favorito confirmado."},
+        {"name":"Valencia CF vs Atlético de Madrid","time":"15:15","confidence":"68%","tags":["1X2","Goles"],"analysis":"Atlético suele competir bien en duelos cerrados."},
+        {"name":"Deportivo Alavés vs Athletic Club","time":"17:30","confidence":"63%","tags":["1X2","Ambos Marcan"],"analysis":"Derbi vasco tenso; Athletic competitivo, Alavés aprieta en casa."},
+        {"name":"CA Osasuna vs FC Barcelona","time":"20:00","confidence":"72%","tags":["1X2","Goles"],"analysis":"Barcelona genera bastante ataque; Osasuna compite mejor como local."}
+      ],
+      "ENG":[
+        {"name":"Brentford FC vs West Ham United","time":"15:00","confidence":"61%","tags":["Ambos Marcan","Goles"],"analysis":"Dos equipos irregulares; hay opciones en ambas áreas."},
+        {"name":"Newcastle United vs Brighton & Hove Albion","time":"15:00","confidence":"69%","tags":["Ambos Marcan","Goles"],"analysis":"Newcastle llega con tendencia goleadora; Brighton también suele marcar."},
+        {"name":"Wolverhampton Wanderers vs Sunderland AFC","time":"15:00","confidence":"58%","tags":["1X2","Goles"],"analysis":"Wolves parte con ligera ventaja local; margen corto esperado."},
+        {"name":"Arsenal FC vs Fulham FC","time":"17:30","confidence":"76%","tags":["1X2","Goles"],"analysis":"Arsenal en casa suele dominar posesión, tiros y ritmo."}
+      ],
+      "GER":[
+        {"name":"FC Bayern Munich vs 1. FC Heidenheim","time":"14:30","confidence":"81%","tags":["1X2","Goles"],"analysis":"Bayern suele imponerse por volumen ofensivo y plantilla."},
+        {"name":"Bayer 04 Leverkusen vs RB Leipzig","time":"17:30","confidence":"64%","tags":["Ambos Marcan","Goles"],"analysis":"Cruce fuerte; ambos tienen recursos para generar ocasiones."}
+      ],
+      "ITA":[
+        {"name":"Como 1907 vs SSC Napoli","time":"17:00","confidence":"71%","tags":["1X2","Goles"],"analysis":"Napoli tiene mayor pegada y mejor consistencia."},
+        {"name":"Atalanta BC vs Genoa CFC","time":"19:45","confidence":"73%","tags":["1X2","Goles"],"analysis":"Atalanta en casa suele sostener presión alta."}
+      ],
+      "FRA":[
+        {"name":"Paris Saint-Germain vs FC Lorient","time":"17:00","confidence":"82%","tags":["1X2","Goles"],"analysis":"PSG mantiene superioridad ofensiva frente a rivales menores."},
+        {"name":"FC Metz vs AS Monaco","time":"19:00","confidence":"67%","tags":["1X2","Ambos Marcan"],"analysis":"Monaco compite arriba; Metz puede rascar alguna ocasión."}
+      ],
+      "NED":[
+        {"name":"AFC Ajax vs PSV Eindhoven","time":"20:00","confidence":"66%","tags":["Ambos Marcan","Goles"],"analysis":"Choque grande; calidad ofensiva bilateral sugiere partido abierto."}
+      ],
+      "EURO":[
+        {"name":"Arsenal FC vs Fulham FC","time":"17:30","confidence":"76%","tags":["1X2","Goles"],"analysis":"Arsenal en casa suele dominar posesión, tiros y ritmo."},
+        {"name":"CA Osasuna vs FC Barcelona","time":"20:00","confidence":"72%","tags":["1X2","Goles"],"analysis":"Barcelona genera bastante ataque; Osasuna compite mejor como local."},
+        {"name":"FC Bayern Munich vs 1. FC Heidenheim","time":"14:30","confidence":"81%","tags":["1X2","Goles"],"analysis":"Bayern suele imponerse por volumen ofensivo y plantilla."},
+        {"name":"Paris Saint-Germain vs FC Lorient","time":"17:00","confidence":"82%","tags":["1X2","Goles"],"analysis":"PSG mantiene superioridad ofensiva frente a rivales menores."},
+        {"name":"AFC Ajax vs PSV Eindhoven","time":"20:00","confidence":"66%","tags":["Ambos Marcan","Goles"],"analysis":"Choque grande; partido con pinta de intercambio de golpes."}
+      ]
+    };
+
+    const LEAGUES = ["ESP","ENG","GER","ITA","FRA","NED","EURO"];
+    const tabs = document.getElementById("tabs");
+    const content = document.getElementById("content");
+    const statusBadge = document.getElementById("statusBadge");
+
+    function safeText(value){
+      return String(value ?? "").replace(/[<>&"]/g, s => ({
+        "<":"&lt;", ">":"&gt;", "&":"&amp;", '"':"&quot;"
+      }[s]));
+    }
+
+    function renderTabs(active){
+      tabs.innerHTML = LEAGUES.map(code => {
+        const count = Array.isArray(DATA[code]) ? DATA[code].length : 0;
+        return `<button class="tab ${code===active?'active':''}" data-code="${code}">${code}<br>${count}</button>`;
+      }).join("");
+      tabs.querySelectorAll(".tab").forEach(btn=>{
+        btn.addEventListener("click",()=>renderLeague(btn.dataset.code));
+      });
+    }
+
+    function renderLeague(code){
+      renderTabs(code);
+      const matches = Array.isArray(DATA[code]) ? DATA[code] : [];
+      if(!matches.length){
+        content.innerHTML = `
+          <div class="section-title">
+            <h3>${safeText(code)}</h3>
+            <span>0 partidos</span>
+          </div>
+          <div class="empty">No hay partidos cargados en esta sección.</div>
+        `;
+        return;
+      }
+
+      content.innerHTML = `
+        <div class="section-title">
+          <h3>${safeText(code)}</h3>
+          <span>${matches.length} partidos</span>
+        </div>
+        <div class="match-list">
+          ${matches.map(match => `
+            <article class="card">
+              <div class="row">
+                <div class="league">${safeText(code)}</div>
+                <div class="time">${safeText(match.time)}</div>
+              </div>
+              <div class="teams">${safeText(match.name)}</div>
+              <div class="meta">
+                <div class="confidence">Confianza: ${safeText(match.confidence)}</div>
+                <div class="tags">
+                  ${(match.tags || []).map(tag => `<span class="tag">${safeText(tag)}</span>`).join("")}
+                </div>
+              </div>
+              <div class="analysis">${safeText(match.analysis)}</div>
+            </article>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    try{
+      statusBadge.textContent = "LIVE";
+      renderLeague("EURO");
+    }catch(err){
+      statusBadge.textContent = "ERROR";
+      content.innerHTML = `<div class="error">Error al renderizar la app: ${safeText(err.message)}</div>`;
+    }
+  </script>
+</body>
+</html>;
 
         function render(cat, el) {
             if(el) { document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); el.classList.add('active'); }
