@@ -3,168 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FÚTBOL 90 | ELITE STADIUM</title>
+    <title>FÚTBOL 90 PRO | SEGURA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Estilo base seguro */
-        body { 
-            background: #070e11; 
-            color: white; 
-            font-family: sans-serif; 
-            padding: 15px; 
-            margin: 0;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            transition: background-image 1.5s ease-in-out;
-        }
+        :root { --primary: #00ff88; --bg: #050a0c; --card: rgba(15,25,30,0.85); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background: var(--bg); color: white; min-height: 100vh; background-size: cover; background-position: center; background-attachment: fixed; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%); z-index: -1; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px 20px 100px; }
+        header { text-align: center; padding: 40px 0 20px; }
+        .logo { font-size: 2.8rem; font-weight: 900; letter-spacing: -3px; user-select: none; }
+        .logo span { color: var(--primary); text-shadow: 0 0 20px var(--primary); }
+        .league-tabs { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0 25px; scrollbar-width: none; }
+        .tab { background: var(--card); border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 12px; font-size: 0.75rem; font-weight: 800; color: #888; white-space: nowrap; cursor: pointer; }
+        .tab.active { background: var(--primary); color: #000; border-color: var(--primary); }
+        .card { background: var(--card); backdrop-filter: blur(20px); border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; border-left: 6px solid var(--primary); overflow: hidden; }
+        .card-header { padding: 15px 20px; background: rgba(255,255,255,0.03); display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 0.75rem; font-weight: 900; color: #aaa; text-transform: uppercase; }
+        .prob { font-size: 0.55rem; padding: 4px 8px; border-radius: 5px; font-weight: 900; }
+        .prob-ALTA { background: #00ff88; color: #000; }
+        .prob-MEDIA { background: #ffd700; color: #000; }
+        .prob-BAJA { background: #ff3e3e; color: #fff; }
+        .card-body { padding: 20px; }
+        .match-name { font-weight: 900; font-size: 0.85rem; margin-bottom: 10px; display: block; }
+        .tag { display: inline-block; background: rgba(255,255,255,0.05); padding: 5px 10px; border-radius: 8px; font-size: 0.6rem; font-weight: 700; color: var(--primary); margin-right: 5px; }
+        .card-footer { padding: 15px 20px; background: rgba(0,0,0,0.3); display: flex; justify-content: space-between; align-items: center; }
+        .odds { font-size: 1.6rem; font-weight: 900; color: var(--primary); }
+        .btn-copy { background: var(--primary); color: #000; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 900; font-size: 0.75rem; }
 
-        /* Capa de protección para legibilidad */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.9) 100%);
-            z-index: -1;
-        }
-
-        .logo { font-size: 2.2rem; font-weight: 900; text-align: center; padding: 25px 0; color: #00ff88; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        
-        .tabs { display: flex; gap: 8px; overflow-x: auto; padding: 15px 5px; scrollbar-width: none; }
-        .tabs::-webkit-scrollbar { display: none; }
-        .tab { background: rgba(26,26,26,0.8); padding: 10px 18px; border-radius: 12px; white-space: nowrap; border: 1px solid #333; color: #888; font-size: 0.75rem; font-weight: bold; cursor: pointer; backdrop-filter: blur(5px); }
-        .tab.active { background: #00ff88; color: black; border-color: #00ff88; }
-        
-        .container { padding-top: 10px; position: relative; z-index: 1; }
-        .bet-slip { background: rgba(17,17,17,0.8); backdrop-filter: blur(15px); border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; border-left: 5px solid #00ff88; }
-        .slip-header { padding: 12px 15px; font-weight: 900; background: rgba(26,26,26,0.5); font-size: 0.7rem; display: flex; justify-content: space-between; align-items: center; }
-        .risk { font-size: 0.55rem; padding: 4px 8px; border-radius: 5px; font-weight: 900; }
-        .risk-ALTA { background: #00ff88; color: black; }
-        .risk-MEDIA { background: #ffd700; color: black; }
-        .risk-BAJA { background: #ff3e3e; color: white; }
-        
-        .slip-body { padding: 15px; }
-        .match-box { margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px; }
-        .match-name { font-weight: 900; display: block; margin-bottom: 8px; font-size: 0.85rem; color: #fff; text-transform: uppercase; }
-        
-        .details { display: flex; flex-wrap: wrap; gap: 5px; }
-        .tag { background: rgba(26,26,26,0.5); padding: 5px 8px; border-radius: 6px; font-size: 0.6rem; color: #00ff88; border: 1px solid rgba(255,255,255,0.1); font-weight: bold; }
-        
-        .slip-footer { padding: 15px; background: rgba(0,0,0,0.5); display: flex; justify-content: space-between; align-items: center; border-radius: 0 0 15px 15px; }
-        .odds-label { font-size: 0.6rem; color: #888; display: block; }
-        .odds { font-size: 1.5rem; font-weight: 900; color: #00ff88; }
-        .btn { background: #00ff88; color: black; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 900; font-size: 0.75rem; cursor: pointer; }
+        /* Panel Admin Seguro */
+        #admin-panel { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; padding: 30px; display: none; overflow-y: auto; }
+        input, textarea { width: 100%; background: #111; color: #00ff88; border: 1px solid #333; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .save-btn { width: 100%; background: var(--primary); color: #000; padding: 15px; border-radius: 12px; font-weight: 900; border: none; }
     </style>
 </head>
 <body>
 
-    <div class="logo">FÚTBOL 90</div>
-
-    <div class="tabs">
-        <div id="tab-EURO" class="tab active" onclick="render('EURO')">EUROPA ★</div>
-        <div id="tab-ESP" class="tab" onclick="render('ESP')">ESPAÑA</div>
-        <div id="tab-ENG" class="tab" onclick="render('ENG')">INGLATERRA</div>
-        <div id="tab-GER" class="tab" onclick="render('GER')">ALEMANIA</div>
-        <div id="tab-ITA" class="tab" onclick="render('ITA')">ITALIA</div>
-        <div id="tab-FRA" class="tab" onclick="render('FRA')">FRANCIA</div>
-        <div id="tab-NED" class="tab" onclick="render('NED')">HOLANDA</div>
+    <div id="admin-panel">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <h3>MODO ADMIN</h3>
+            <button onclick="closeAdmin()" style="background: none; color: white; border: none;">CERRAR</button>
+        </div>
+        <p style="font-size: 0.7rem; color: #888; margin-bottom: 10px;">Token GitHub (Solo se pide una vez):</p>
+        <input type="password" id="gh-token" placeholder="Pega aquí tu ghp_...">
+        <p style="font-size: 0.7rem; color: #888; margin-bottom: 10px;">Datos de la App (JSON):</p>
+        <textarea id="data-editor" style="height: 300px;"></textarea>
+        <button class="save-btn" onclick="saveToGitHub()">GUARDAR Y ACTUALIZAR NUBE</button>
+        <div id="status-log" style="font-size: 0.7rem; margin-top: 15px; color: #888;"></div>
     </div>
 
-    <div class="container" id="slips-container"></div>
+    <div class="container">
+        <header><div class="logo" id="main-logo" oncontextmenu="return false;">FÚTBOL <span>90</span></div></header>
+        <div class="league-tabs" id="tabs-container"></div>
+        <div id="content-area"></div>
+    </div>
 
     <script>
-        var data = {
-            'EURO': [
-                { title: "COMBO 5 ESTRELLAS (MIX)", odds: "38.20", risk: "BAJA", matches: [
-                    { name: "FC Barcelona vs CA Osasuna", tags: ["1X2: 1", "Remates: Barcelona"] },
-                    { name: "Arsenal FC vs Fulham FC", tags: ["1X2: 1", "Goles: +1.5"] },
-                    { name: "Atalanta BC vs Genoa CFC", tags: ["1X2: 1", "Corners: Atalanta"] },
-                    { name: "Bayer 04 Leverkusen vs RB Leipzig", tags: ["1X2: X2", "Tarjetas: Leverkusen"] },
-                    { name: "AFC Ajax vs PSV Eindhoven", tags: ["1X2: X", "Ambos Marcarán: SÍ"] }
-                ]}
-            ],
-            'ESP': [
-                { title: "JORNADA LA LIGA", odds: "6.45", risk: "MEDIA", matches: [
-                    { name: "FC Barcelona vs CA Osasuna", tags: ["1X2: 1", "Remates: Barcelona", "Ambos Marcarán: NO"] },
-                    { name: "Villarreal CF vs Levante UD", tags: ["1X2: 1", "Goles: +2.5", "Corners: Villarreal"] },
-                    { name: "Valencia CF vs Atlético de Madrid", tags: ["1X2: X2", "Tarjetas: Valencia", "Goles: +1.5"] }
-                ]}
-            ],
-            'ENG': [
-                { title: "PREMIER LEAGUE", odds: "5.20", risk: "MEDIA", matches: [
-                    { name: "Arsenal FC vs Fulham FC", tags: ["1X2: 1", "Remates: Arsenal"] },
-                    { name: "Newcastle United vs Brighton", tags: ["1X2: 1", "Goles: +2.5", "Corners: Brighton"] }
-                ]}
-            ],
-            'GER': [
-                { title: "BUNDESLIGA", odds: "4.80", risk: "ALTA", matches: [
-                    { name: "FC Bayern München vs Heidenheim", tags: ["1X2: 1", "Remates: Bayern"] },
-                    { name: "Bayer 04 Leverkusen vs RB Leipzig", tags: ["1X2: X2", "Ambos Marcarán: SÍ"] }
-                ]}
-            ],
-            'ITA': [
-                { title: "SERIE A", odds: "4.15", risk: "MEDIA", matches: [
-                    { name: "Atalanta BC vs Genoa CFC", tags: ["1X2: 1", "Corners: Atalanta"] },
-                    { name: "Juventus FC vs Hellas Verona FC", tags: ["1X2: 1", "Goles: +2.5"] }
-                ]}
-            ],
-            'FRA': [
-                { title: "LIGUE 1", odds: "3.90", risk: "ALTA", matches: [
-                    { name: "Paris Saint-Germain vs FC Lorient", tags: ["1X2: 1", "Remates: PSG"] },
-                    { name: "OGC Nice vs RC Lens", tags: ["1X2: X", "Goles: +1.5"] }
-                ]}
-            ],
-            'NED': [
-                { title: "EREDIVISIE", odds: "2.85", risk: "MEDIA", matches: [
-                    { name: "AFC Ajax vs PSV Eindhoven", tags: ["1X2: X", "Goles: +2.5"] }
-                ]}
-            ]
+        const GITHUB_REPO = 'SERPION7/F-TBOL-90';
+        const GITHUB_FILE = 'futbol90_FINAL_V4/index.html';
+
+        // DATOS INICIALES
+        var appData = {
+            'EURO': [{ title: "COMBO 5 ESTRELLAS", odds: "38.20", risk: "BAJA", matches: [{ name: "FC BARCELONA vs CA OSASUNA", tags: ["1X2: 1", "AMBOS MARCARÁN: NO"] }, { name: "ARSENAL FC vs FULHAM FC", tags: ["1X2: 1", "GOLES: +1.5"] }] }],
+            'ESP': [{ title: "LA LIGA", odds: "6.45", risk: "MEDIA", matches: [{ name: "FC BARCELONA vs CA OSASUNA", tags: ["1X2: 1"] }] }]
         };
 
-        function render(cat) {
-            var tabs = document.getElementsByClassName('tab');
-            for(var i=0; i<tabs.length; i++) { tabs[i].className = 'tab'; }
-            var t = document.getElementById('tab-' + cat);
-            if(t) t.className = 'tab active';
-
-            var container = document.getElementById('slips-container');
-            var items = data[cat] || [];
-            var html = '';
-
-            for(var i=0; i<items.length; i++) {
-                var it = items[i];
-                html += '<div class="bet-slip">';
-                html += '<div class="slip-header"><span>' + it.title + '</span><span class="risk risk-' + it.risk + '">PROBABILIDAD: ' + it.risk + '</span></div>';
-                html += '<div class="slip-body">';
-                for(var j=0; j<it.matches.length; j++) {
-                    html += '<div class="match-box"><span class="match-name">' + it.matches[j].name + '</span><div class="details">';
-                    for(var k=0; k<it.matches[j].tags.length; k++) {
-                        html += '<div class="tag">' + it.matches[j].tags[k] + '</div>';
-                    }
-                    html += '</div></div>';
-                }
-                html += '</div><div class="slip-footer"><div><span class="odds-label">CUOTA TOTAL</span><span class="odds">' + it.odds + '</span></div><button class="btn">COPIAR</button></div></div>';
-            }
-            container.innerHTML = html;
+        function render(cat, el) {
+            if(el) { document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); el.classList.add('active'); }
+            const container = document.getElementById('content-area');
+            const items = appData[cat] || [];
+            container.innerHTML = items.map(c => `
+                <div class="card">
+                    <div class="card-header"><span class="card-title">${c.title}</span><span class="prob prob-${c.risk}">PROBABILIDAD: ${c.risk}</span></div>
+                    <div class="card-body">
+                        ${c.matches.map(m => `<div class="match"><span class="match-name">${m.name}</span><div class="tags">${m.tags.map(t => `<div class="tag">${t}</div>`).join('')}</div></div>`).join('')}
+                    </div>
+                    <div class="card-footer"><div class="odds">${c.odds}</div><button class="btn-copy">COPIAR</button></div>
+                </div>
+            `).join('');
         }
 
-        // 1. Renderizar datos primero (INSTANTÁNEO)
-        render('EURO');
+        // Detectar pulsación larga (3s) en el logo
+        let timer;
+        const logo = document.getElementById('main-logo');
+        logo.addEventListener('touchstart', () => timer = setTimeout(openAdmin, 3000));
+        logo.addEventListener('mousedown', () => timer = setTimeout(openAdmin, 3000));
+        logo.addEventListener('touchend', () => clearTimeout(timer));
+        logo.addEventListener('mouseup', () => clearTimeout(timer));
 
-        // 2. Cargar estadios por detrás (SIN BLOQUEAR)
-        var stadiums = [
-            "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1920&q=80",
-            "https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&w=1920&q=80",
-            "https://images.unsplash.com/photo-1596727147705-61a532a659bd?auto=format&fit=crop&w=1920&q=80",
-            "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1920&q=80"
-        ];
-        var img = new Image();
-        img.src = stadiums[Math.floor(Math.random() * stadiums.length)];
-        img.onload = function() {
-            document.body.style.backgroundImage = 'url(' + img.src + ')';
+        function openAdmin() {
+            document.getElementById('gh-token').value = localStorage.getItem('gh_token') || '';
+            document.getElementById('data-editor').value = JSON.stringify(appData, null, 2);
+            document.getElementById('admin-panel').style.display = 'block';
+        }
+        function closeAdmin() { document.getElementById('admin-panel').style.display = 'none'; }
+
+        async function saveToGitHub() {
+            const token = document.getElementById('gh-token').value;
+            localStorage.setItem('gh_token', token); // Guardar en el móvil
+            const log = document.getElementById('status-log');
+            log.innerHTML = "Actualizando...";
+            
+            try {
+                const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE}`, { headers: { 'Authorization': `token ${token}` } });
+                const fileData = await res.json();
+                let fullCode = decodeURIComponent(escape(atob(fileData.content)));
+                const dataStart = fullCode.indexOf('var appData =');
+                const dataEnd = fullCode.indexOf('};', dataStart) + 2;
+                const updatedCode = fullCode.substring(0, dataStart) + "var appData = " + document.getElementById('data-editor').value + ";" + fullCode.substring(dataEnd);
+
+                const updateRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE}`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: "Update via App", content: btoa(unescape(encodeURIComponent(updatedCode))), sha: fileData.sha })
+                });
+
+                if(updateRes.ok) { log.innerHTML = "¡ÉXITO! App actualizada."; setTimeout(() => location.reload(), 1500); }
+                else { log.innerHTML = "Error: Revisa tu Token."; }
+            } catch (e) { log.innerHTML = "Error: " + e.message; }
+        }
+
+        window.onload = () => {
+            const tabsContainer = document.getElementById('tabs-container');
+            const categories = ['EURO', 'ESP', 'ENG', 'GER', 'ITA', 'FRA', 'NED'];
+            tabsContainer.innerHTML = categories.map((cat, i) => `<div class="tab ${i===0?'active':''}" onclick="render('${cat}', this)">${cat}</div>`).join('');
+            render('EURO');
+            const st = ["https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1920&q=80","https://images.unsplash.com/photo-1543351611-58f69d7c1781?auto=format&fit=crop&w=1920&q=80","https://images.unsplash.com/photo-1596727147705-61a532a659bd?auto=format&fit=crop&w=1920&q=80"];
+            document.body.style.backgroundImage = 'url(' + st[Math.floor(Math.random() * st.length)] + ')';
         };
     </script>
 </body>
 </html>
-
-
-
