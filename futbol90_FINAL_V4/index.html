@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FÚTBOL 90 | PRO CLOUD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #00ff88; --secondary: #ff3e3e; --accent: #ffd700; --bg: #050505; --glass: rgba(255,255,255,0.08); --text: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background: var(--bg); color: var(--text); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { text-align: center; padding: 30px 0; border-bottom: 1px solid var(--glass); margin-bottom: 30px; }
+        .logo { font-size: 2.5rem; font-weight: 900; }
+        .logo span { color: var(--primary); }
+        .update-tag { font-size: 0.7rem; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; display: block; }
+        
+        .section-title { font-size: 1.2rem; margin: 30px 0 15px; color: var(--primary); font-weight: 800; text-transform: uppercase; }
+        .slip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        
+        .bet-slip { background: #121214; border-radius: 20px; border: 1px solid var(--glass); overflow: hidden; border-left: 4px solid var(--primary); }
+        .slip-header { background: #1a1a1e; padding: 15px 20px; font-weight: 800; display: flex; justify-content: space-between; font-size: 0.9rem; }
+        .slip-body { padding: 20px; }
+        .match-box { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .match-box:last-child { border: none; margin: 0; padding: 0; }
+        .match-name { font-weight: 900; font-size: 0.85rem; color: #fff; margin-bottom: 12px; display: block; }
+        .details { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .tag { background: #1a1a1e; padding: 6px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 600; border: 1px solid var(--glass); color: #ccc; }
+        .tag strong { color: var(--primary); }
+        
+        .slip-footer { background: #1a1a1e; padding: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .odds { font-weight: 900; font-size: 1.5rem; color: var(--primary); }
+        .btn { background: var(--primary); color: #000; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 900; cursor: pointer; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">FÚTBOL <span>90</span></div>
+            <span class="update-tag">Última actualización: Hoy, 2 de Mayo</span>
+        </header>
+
+        <h2 class="section-title">Recomendaciones de la Jornada</h2>
+        <div id="slips-container" class="slip-grid"></div>
+    </div>
+
+    <script>
+        /* === ZONA DE DATOS (ESTO ES LO QUE EDITAREMOS DESDE EL MÓVIL) === */
+        const recoData = [
+            {
+                title: "EL GRAN COMBO (5 ESTRELLAS)",
+                odds: "38.20",
+                matches: [
+                    { name: "Barca vs Osasuna", tags: ["1X2: 1", "Más Remates: Barca", "Ambos Marcan: NO"] },
+                    { name: "Arsenal vs Fulham", tags: ["1X2: 1", "Más Remates: Arsenal", "Goles: +1.5"] },
+                    { name: "Atalanta vs Genoa", tags: ["1X2: 1", "Más Córners: Atalanta", "Ambos Marcan: NO"] },
+                    { name: "Leverkusen vs Leipzig", tags: ["1X2: X2", "Ambos Marcan: SÍ", "Más Tarjetas: Leverkusen"] },
+                    { name: "Ajax vs PSV", tags: ["1X2: X", "Goles: +2.5", "Más Remates Puerta: Ajax"] }
+                ]
+            },
+            {
+                title: "BOLETO LA LIGA",
+                odds: "6.45",
+                matches: [
+                    { name: "Villarreal vs Levante", tags: ["1X2: 1", "Más Córners: Villarreal", "Goles: +2.5"] },
+                    { name: "Valencia vs Atlético", tags: ["1X2: X2", "Ambos Marcan: SÍ", "Más Tarjetas: Valencia"] }
+                ]
+            }
+        ];
+        /* === FIN DE LA ZONA DE DATOS === */
+
+        function render() {
+            const container = document.getElementById('slips-container');
+            container.innerHTML = recoData.map(r => `
+                <div class="bet-slip">
+                    <div class="slip-header"><span>${r.title}</span><span>PRO</span></div>
+                    <div class="slip-body">
+                        ${r.matches.map(m => `
+                            <div class="match-box">
+                                <span class="match-name">${m.name}</span>
+                                <div class="details">
+                                    ${m.tags.map(t => `<div class="tag">${t}</div>`).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="slip-footer">
+                        <div class="odds"><span>${r.odds}</span></div>
+                        <button class="btn">COPIAR</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        render();
+    </script>
+</body>
+</html>
