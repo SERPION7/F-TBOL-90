@@ -1,69 +1,59 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FÚTBOL 90 PRO | MAX DATA</title>
-<style>
-body{background:#050505;color:white;font-family:sans-serif;padding:15px;margin:0;background-size:cover;background-position:center;background-attachment:fixed}
-body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(0,0,0,0.6)0%,rgba(0,0,0,0.95)100%);z-index:-1}
-.logo{font-size:2.2rem;font-weight:900;text-align:center;padding:25px 0;color:#00ff88;border-bottom:1px solid rgba(255,255,255,0.1);user-select:none}
-.tabs{display:flex;gap:8px;overflow-x:auto;padding:15px 5px;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tab{background:rgba(26,26,26,0.8);padding:10px 18px;border-radius:12px;white-space:nowrap;border:1px solid #333;color:#888;font-size:0.75rem;font-weight:bold;cursor:pointer;backdrop-filter:blur(5px)}
-.tab.active{background:#00ff88;color:black;border-color:#00ff88}
-.container{padding-top:10px;position:relative;z-index:1}
-.bet-slip{background:rgba(17,17,17,0.85);backdrop-filter:blur(15px);border-radius:15px;border:1px solid rgba(255,255,255,0.1);margin-bottom:20px;border-left:5px solid #00ff88}
-.slip-header{padding:12px 15px;font-weight:900;background:rgba(26,26,26,0.7);font-size:0.75rem;display:flex;justify-content:space-between;align-items:center;color:#fff}
-.risk{font-size:0.55rem;padding:4px 8px;border-radius:5px;font-weight:900}
-.risk-ALTA{background:#00ff88;color:black}.risk-MEDIA{background:#ffd700;color:black}.risk-BAJA{background:#ff3e3e;color:white}
-.slip-body{padding:15px}
-.match-box{margin-bottom:18px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:12px}
-.match-box:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.match-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
-.match-name{font-weight:900;font-size:0.85rem;color:#fff;text-transform:uppercase}
-.match-time{color:#888;font-size:0.7rem;margin-right:6px;font-weight:bold}
-.match-conf{font-size:0.7rem;color:#00ff88;font-weight:900;background:rgba(0,255,136,0.1);padding:2px 6px;border-radius:4px}
-.details{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
-.tag{background:rgba(26,26,26,0.8);padding:5px 8px;border-radius:6px;font-size:0.65rem;color:#fff;border:1px solid rgba(0,255,136,0.3);font-weight:bold}
-.match-analysis{font-size:0.65rem;color:#aaa;line-height:1.4;font-style:italic;background:rgba(255,255,255,0.02);padding:8px;border-radius:6px;border-left:2px solid #555}
-.slip-footer{padding:15px;background:rgba(0,0,0,0.6);display:flex;justify-content:space-between;align-items:center;border-radius:0 0 15px 15px}
-.odds-label{font-size:0.6rem;color:#888;display:block}
-.odds{font-size:1.6rem;font-weight:900;color:#00ff88}
-.btn{background:#00ff88;color:black;border:none;padding:10px 20px;border-radius:8px;font-weight:900;font-size:0.75rem;cursor:pointer}
-#admin-panel{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:2000;padding:20px;display:none;overflow-y:auto}
-input,textarea{width:100%;background:#111;color:#00ff88;border:1px solid #333;padding:12px;border-radius:8px;margin-bottom:15px;font-family:monospace;font-size:0.75rem}
-.save-btn{width:100%;background:#00ff88;color:#000;padding:15px;border-radius:8px;font-weight:900;border:none}
-</style>
-<link rel="manifest" href="manifest.json">
-</head>
-<body>
-<div id="admin-panel">
-<div style="display:flex;justify-content:space-between;margin-bottom:20px">
-<h3 style="color:white;margin:0">MODO ADMIN</h3>
-<button onclick="closeAdmin()" style="background:none;color:white;border:none;font-weight:bold">CERRAR</button>
-</div>
-<p style="font-size:0.7rem;color:#888;margin-bottom:5px">Token GitHub:</p>
-<input type="password" id="gh-token" placeholder="ghp_...">
-<p style="font-size:0.7rem;color:#888;margin-bottom:5px">Datos JSON:</p>
-<textarea id="data-editor" style="height:350px"></textarea>
-<button class="save-btn" onclick="saveToGitHub()">GUARDAR Y ACTUALIZAR NUBE</button>
-<div id="status-log" style="font-size:0.75rem;margin-top:15px;color:#aaa;text-align:center"></div>
-</div>
-<div class="logo" id="main-logo" oncontextmenu="return false">FUTBOL <span>90</span></div>
-<div class="tabs" id="tabs-container"></div>
-<div class="container" id="slips-container"></div>
-<script>
-var GITHUB_REPO='SERPION7/F-TBOL-90';
-var GITHUB_FILE='futbol90_FINAL_V4/index.html';
-var appData={"EURO":[{"title":"TOP PICKS EUROPA","risk":"ALTA","odds":"3.20","matches":[{"name":"Arsenal FC vs Fulham FC","time":"17:30","confidence":"76%","tags":["1X2","Goles"],"analysis":"Arsenal en casa domina posesion y ritmo."},{"name":"CA Osasuna vs FC Barcelona","time":"20:00","confidence":"72%","tags":["1X2","Goles"],"analysis":"Barcelona genera bastante ataque fuera."},{"name":"FC Bayern Munich vs Heidenheim","time":"14:30","confidence":"81%","tags":["1X2","Goles"],"analysis":"Bayern se impone por volumen ofensivo."},{"name":"PSG vs Lorient","time":"17:00","confidence":"82%","tags":["1X2","Goles"],"analysis":"PSG mantiene superioridad ofensiva clara."},{"name":"Ajax vs PSV Eindhoven","time":"20:00","confidence":"66%","tags":["Ambos Marcan","Goles"],"analysis":"Clasico neerlandes de alto nivel ofensivo."}]}],"ESP":[{"title":"LA LIGA - HOY","risk":"MEDIA","odds":"2.80","matches":[{"name":"Villarreal CF vs Levante UD","time":"13:00","confidence":"74%","tags":["1X2","Goles"],"analysis":"Villarreal confirma supremacia en casa."},{"name":"Valencia CF vs Atletico Madrid","time":"15:15","confidence":"68%","tags":["1X2","Goles"],"analysis":"Atletico compite bien fuera en duelos cerrados."},{"name":"Alaves vs Athletic Club","time":"17:30","confidence":"63%","tags":["1X2","Ambos Marcan"],"analysis":"Derbi vasco tenso con equilibrio local."},{"name":"Osasuna vs FC Barcelona","time":"20:00","confidence":"72%","tags":["1X2","Goles"],"analysis":"Barcelona genera bastante ataque visitante."}]}],"ENG":[{"title":"PREMIER LEAGUE - HOY","risk":"MEDIA","odds":"2.50","matches":[{"name":"Brentford vs West Ham Utd","time":"15:00","confidence":"61%","tags":["Ambos Marcan","Goles"],"analysis":"Dos equipos irregulares con opciones en ambas areas."},{"name":"Newcastle Utd vs Brighton","time":"15:00","confidence":"69%","tags":["Ambos Marcan","Goles"],"analysis":"Newcastle en racha goleadora; Brighton marca fuera."},{"name":"Wolverhampton vs Sunderland","time":"15:00","confidence":"58%","tags":["1X2","Goles"],"analysis":"Wolves con ventaja local en duelo ajustado."},{"name":"Arsenal FC vs Fulham FC","time":"17:30","confidence":"76%","tags":["1X2","Goles"],"analysis":"Arsenal en casa domina posesion y ritmo."}]}],"GER":[{"title":"BUNDESLIGA - DESTACADOS","risk":"ALTA","odds":"2.10","matches":[{"name":"FC Bayern Munich vs Heidenheim","time":"14:30","confidence":"81%","tags":["1X2","Goles"],"analysis":"Bayern se impone por volumen ofensivo."},{"name":"Bayer Leverkusen vs RB Leipzig","time":"17:30","confidence":"64%","tags":["Ambos Marcan","Goles"],"analysis":"Cruce alto nivel; ambos generan muchas ocasiones."}]}],"ITA":[{"title":"SERIE A - DESTACADOS","risk":"MEDIA","odds":"2.30","matches":[{"name":"Como 1907 vs SSC Napoli","time":"17:00","confidence":"71%","tags":["1X2","Goles"],"analysis":"Napoli tiene mayor pegada y consistencia."},{"name":"Atalanta BC vs Genoa CFC","time":"19:45","confidence":"73%","tags":["1X2","Goles"],"analysis":"Atalanta en casa sostiene presion alta."}]}],"FRA":[{"title":"LIGUE 1 - DESTACADOS","risk":"ALTA","odds":"2.60","matches":[{"name":"PSG vs Lorient","time":"17:00","confidence":"82%","tags":["1X2","Goles"],"analysis":"PSG mantiene superioridad ofensiva clara."},{"name":"FC Metz vs AS Monaco","time":"19:00","confidence":"67%","tags":["1X2","Ambos Marcan"],"analysis":"Monaco compite arriba; Metz rasca en casa."}]}],"NED":[{"title":"EREDIVISIE - CLASICO","risk":"MEDIA","odds":"2.40","matches":[{"name":"AFC Ajax vs PSV Eindhoven","time":"20:00","confidence":"66%","tags":["Ambos Marcan","Goles"],"analysis":"Clasico neerlandes de alto nivel ofensivo."}]}]};
-function render(cat,el){if(el){document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});el.classList.add('active')}var container=document.getElementById('slips-container');var items=appData[cat]||[];if(items.length===0){container.innerHTML='<p style="text-align:center;padding:40px;color:#666;font-weight:bold">No hay partidos destacables hoy en esta liga.</p>';return}var html='';for(var i=0;i<items.length;i++){var c=items[i];var mh='';for(var j=0;j<c.matches.length;j++){var m=c.matches[j];var th='';for(var k=0;k<m.tags.length;k++){th+='<div class="tag">'+m.tags[k]+'</div>'}mh+='<div class="match-box"><div class="match-header"><span class="match-name"><span class="match-time">'+(m.time||'')+'</span>'+m.name+'</span>'+(m.confidence?'<span class="match-conf">'+m.confidence+'</span>':'')+'</div><div class="details">'+th+'</div>'+(m.analysis?'<div class="match-analysis">'+m.analysis+'</div>':'')+'</div>'}html+='<div class="bet-slip"><div class="slip-header"><span>'+c.title+'</span><span class="risk risk-'+c.risk+'">PROBABILIDAD: '+c.risk+'</span></div><div class="slip-body">'+mh+'</div><div class="slip-footer"><div><span class="odds-label">CUOTA TOTAL</span><span class="odds">'+c.odds+'</span></div><button class="btn">COPIAR BOLETO</button></div></div>'}container.innerHTML=html}
-var timer;var logo=document.getElementById('main-logo');logo.addEventListener('touchstart',function(){timer=setTimeout(openAdmin,3000)});logo.addEventListener('mousedown',function(){timer=setTimeout(openAdmin,3000)});logo.addEventListener('touchend',function(){clearTimeout(timer)});logo.addEventListener('mouseup',function(){clearTimeout(timer)});
-function openAdmin(){document.getElementById('gh-token').value='';document.getElementById('data-editor').value=JSON.stringify(appData,null,2);document.getElementById('admin-panel').style.display='block'}
-function closeAdmin(){document.getElementById('admin-panel').style.display='none'}
-async function saveToGitHub(){var token=document.getElementById('gh-token').value;var log=document.getElementById('status-log');log.innerHTML='Actualizando...';try{var res=await fetch('https://api.github.com/repos/'+GITHUB_REPO+'/contents/'+GITHUB_FILE,{headers:{'Authorization':'token '+token}});var fd=await res.json();var fc=decodeURIComponent(escape(atob(fd.content)));var ds=fc.indexOf('var appData=');var de=fc.indexOf('};',ds)+2;var uc=fc.substring(0,ds)+'var appData='+document.getElementById('data-editor').value+';'+fc.substring(de);var ur=await fetch('https://api.github.com/repos/'+GITHUB_REPO+'/contents/'+GITHUB_FILE,{method:'PUT',headers:{'Authorization':'token '+token,'Content-Type':'application/json'},body:JSON.stringify({message:'Update Data',content:btoa(unescape(encodeURIComponent(uc))),sha:fd.sha})});if(ur.ok){log.innerHTML='EXITO! Recarga en 30s';setTimeout(function(){location.reload()},2000)}else{log.innerHTML='Error. Revisa tu Token'}}catch(e){log.innerHTML='Error: '+e.message}}
-window.onload=function(){var tc=document.getElementById('tabs-container');var cats=['EURO','ESP','ENG','GER','ITA','FRA','NED'];var h='';for(var i=0;i<cats.length;i++){h+='<div class="tab '+(i===0?'active':'')+'" onclick="render(\''+cats[i]+'\',this)">'+(cats[i]==='EURO'?'EUROPA ★':cats[i])+'</div>'}tc.innerHTML=h;render('EURO');var st=["https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1920&q=80","https://images.unsplash.com/photo-1596727147705-61a532a659bd?auto=format&fit=crop&w=1920&q=80"];var img=new Image();img.src=st[Math.floor(Math.random()*st.length)];img.onload=function(){document.body.style.backgroundImage='url('+img.src+')'}}
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
-</script>
-</body>
-</html
+{
+  "EURO": [
+    {
+      "title": "TOP PICKS EUROPA",
+      "risk": "ALTA",
+      "odds": "3.20",
+      "matches": [
+        {"name": "Arsenal FC vs Fulham FC", "time": "17:30", "confidence": "76%", "tags": ["1", "+2.5 Goles", "Ambos Marcan"], "analysis": "Arsenal en casa domina posesion y ritmo. Fulham tambien marca."},
+        {"name": "Osasuna vs FC Barcelona", "time": "20:00", "confidence": "72%", "tags": ["2", "+2.5 Goles", "+5.5 Corners Visitante"], "analysis": "Barcelona genera bastante ataque y domina corners fuera."},
+        {"name": "FC Bayern vs Heidenheim", "time": "14:30", "confidence": "81%", "tags": ["1", "+3.5 Goles", "+6.5 Corners Local"], "analysis": "Bayern domina corners y genera muchos goles en casa."},
+        {"name": "PSG vs Lorient", "time": "17:00", "confidence": "82%", "tags": ["1", "+3.5 Goles", "+4.5 Corners Local"], "analysis": "PSG aplasta localmente con superioridad total."},
+        {"name": "Ajax vs PSV Eindhoven", "time": "20:00", "confidence": "66%", "tags": ["Ambos Marcan", "+2.5 Goles", "+10.5 Corners Total"], "analysis": "Clasico neerlandes abierto con muchos corners esperados."}
+      ]
+    }
+  ],
+  "ESP": [
+    {
+      "title": "LA LIGA - HOY",
+      "risk": "MEDIA",
+      "odds": "2.80",
+      "matches": [
+        {"name": "Villarreal CF vs Levante UD", "time": "13:00", "confidence": "74%", "tags": ["1", "+2.5 Goles", "+5.5 Corners Local"], "analysis": "Villarreal domina en casa con presion alta y corners."},
+        {"name": "Valencia CF vs Atletico Madrid", "time": "15:15", "confidence": "68%", "tags": ["X o 2", "-2.5 Goles", "+2.5 Tarjetas Total"], "analysis": "Partido cerrado, Atletico solido atras. Muchas faltas esperadas."},
+        {"name": "Alaves vs Athletic Club", "time": "17:30", "confidence": "63%", "tags": ["X", "Ambos Marcan", "+3.5 Tarjetas Total"], "analysis": "Derbi vasco muy fisico con tarjetas y equilibrio en el marcador."},
+        {"name": "Osasuna vs FC Barcelona", "time": "20:00", "confidence": "72%", "tags": ["2", "+2.5 Goles", "+5.5 Corners Visitante"], "analysis": "Barcelona domina corners y crea ocasiones visitante."}
+      ]
+    }
+  ],
+  "ENG": [
+    {
+      "title": "PREMIER LEAGUE - HOY",
+      "risk": "MEDIA",
+      "odds": "2.50",
+      "matches": [
+        {"name": "Brentford vs West Ham Utd", "time": "15:00", "confidence": "61%", "tags": ["Ambos Marcan", "+2.5 Goles", "+4.5 Corners Local"], "analysis": "Ambos equipos abren lineas, partido con goles esperados."},
+        {"name": "Newcastle Utd vs Brighton", "time": "15:00", "confidence": "69%", "tags": ["1 o X", "Ambos Marcan", "+3.5 Tarjetas Total"], "analysis": "Newcastle fuerte en casa, Brighton presiona y provoca faltas."},
+        {"name": "Wolverhampton vs Sunderland", "time": "15:00", "confidence": "58%", "tags": ["1", "-2.5 Goles", "+3.5 Tarjetas Total"], "analysis": "Partido trabado, Wolves gana justo con pocas ocasiones."},
+        {"name": "Arsenal FC vs Fulham FC", "time": "17:30", "confidence": "76%", "tags": ["1", "+2.5 Goles", "Ambos Marcan"], "analysis": "Arsenal en casa domina posesion. Fulham tambien anota."}
+      ]
+    }
+  ],
+  "GER": [
+    {
+      "title": "BUNDESLIGA - DESTACADOS",
+      "risk": "ALTA",
+      "odds": "2.10",
+      "matches": [
+        {"name": "FC Bayern vs Heidenheim", "time": "14:30", "confidence": "81%", "tags": ["1", "+3.5 Goles", "+6.5 Corners Local"], "analysis": "Bayern aplastante en casa con dominio total de corners."},
+        {"name": "Bayer Leverkusen vs RB Leipzig", "time": "17:30", "confidence": "64%", "tags": ["Ambos Marcan", "+2.5 Goles", "+10.5 Corners Total"], "analysis": "Duelo intenso con muchas ocasiones y corners bilaterales."}
+      ]
+    }
+  ],
+  "ITA": [
+    {
+      "title": "SERIE A - DESTACADOS",
+      "risk": "MEDIA",
+      "odds": "2.30",
+      "matches": [
+        {"name": "Como 1907 vs SSC Napoli", "time": "17:00", "confidence": "71%", "tags": ["2", "+2.5 Goles", "+4.5 Corners Visitante"], "analysis": "Napoli controla el partido y domina corners 
