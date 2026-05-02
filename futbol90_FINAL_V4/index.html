@@ -3,28 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FÚTBOL 90 | FIX</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;900&display=swap" rel="stylesheet">
+    <title>FÚTBOL 90 | FINAL</title>
     <style>
-        body { background: #050505; color: white; font-family: 'Outfit', sans-serif; padding: 20px; }
-        .logo { font-size: 2.5rem; font-weight: 900; text-align: center; margin-bottom: 20px; color: #00ff88; }
-        .tabs { display: flex; gap: 10px; overflow-x: auto; margin-bottom: 20px; padding-bottom: 10px; }
-        .tab { background: #1a1a1a; padding: 10px 20px; border-radius: 10px; white-space: nowrap; cursor: pointer; border: 1px solid #333; color: #888; font-weight: bold; }
+        /* Sin fuentes externas para evitar esperas */
+        body { background: #050505; color: white; font-family: sans-serif; padding: 15px; }
+        .logo { font-size: 2.2rem; font-weight: 900; text-align: center; margin-bottom: 20px; color: #00ff88; }
+        
+        .tabs { display: flex; gap: 8px; overflow-x: auto; margin-bottom: 20px; }
+        .tab { background: #1a1a1a; padding: 10px 15px; border-radius: 8px; white-space: nowrap; border: 1px solid #333; color: #888; font-size: 0.8rem; font-weight: bold; }
         .tab.active { background: #00ff88; color: black; border-color: #00ff88; }
         
-        .slip-grid { display: block; }
-        .bet-slip { background: #111; border-radius: 15px; border: 1px solid #222; margin-bottom: 20px; border-left: 5px solid #00ff88; overflow: hidden; }
-        .slip-header { padding: 15px; font-weight: 900; background: #1a1a1a; font-size: 0.9rem; }
+        .bet-slip { background: #111; border-radius: 12px; border: 1px solid #222; margin-bottom: 15px; border-left: 5px solid #00ff88; }
+        .slip-header { padding: 12px; font-weight: bold; background: #1a1a1a; font-size: 0.8rem; border-bottom: 1px solid #222; }
         .slip-body { padding: 15px; }
-        .match-box { margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
-        .match-name { font-weight: 900; display: block; margin-bottom: 5px; font-size: 0.8rem; }
-        .details { display: flex; flex-wrap: wrap; gap: 5px; }
-        .tag { background: #222; padding: 5px 8px; border-radius: 5px; font-size: 0.6rem; color: #00ff88; border: 1px solid #333; }
-        .slip-footer { padding: 15px; background: #000; display: flex; justify-content: space-between; align-items: center; }
-        .odds { font-size: 1.4rem; font-weight: 900; color: #00ff88; }
-        .btn { background: #00ff88; color: black; border: none; padding: 8px 15px; border-radius: 5px; font-weight: 900; font-size: 0.7rem; }
+        .match-box { margin-bottom: 12px; border-bottom: 1px solid #222; padding-bottom: 8px; }
+        .match-name { font-weight: bold; display: block; margin-bottom: 5px; font-size: 0.85rem; }
+        .tag { display: inline-block; background: #222; padding: 4px 6px; border-radius: 4px; font-size: 0.65rem; color: #00ff88; margin-right: 5px; margin-bottom: 5px; }
         
-        #error-msg { color: #ff3e3e; text-align: center; font-size: 0.7rem; margin-top: 10px; }
+        .slip-footer { padding: 12px; background: #000; display: flex; justify-content: space-between; align-items: center; }
+        .odds { font-size: 1.3rem; font-weight: bold; color: #00ff88; }
+        .btn { background: #00ff88; color: black; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold; font-size: 0.7rem; }
     </style>
 </head>
 <body>
@@ -32,48 +30,79 @@
     <div class="logo">FÚTBOL 90</div>
 
     <div class="tabs">
-        <div class="tab active" onclick="changeTab('EURO', this)">COMBOS EUROPA</div>
-        <div class="tab" onclick="changeTab('ESP', this)">ESPAÑA</div>
-        <div class="tab" onclick="changeTab('ENG', this)">INGLATERRA</div>
+        <div class="tab active" id="tab-euro" onclick="render('EURO')">EUROPA</div>
+        <div class="tab" id="tab-esp" onclick="render('ESP')">ESPAÑA</div>
+        <div class="tab" id="tab-eng" onclick="render('ENG')">INGLATERRA</div>
     </div>
 
+    <!-- El contenido inicial ya está aquí escrito por si el JS falla -->
     <div id="slips-container">
-        <p style="text-align: center; color: #555;">Cargando recomendaciones...</p>
+        <div class="bet-slip">
+            <div class="slip-header">COMBO 5 ESTRELLAS (CARGA SEGURA)</div>
+            <div class="slip-body">
+                <div class="match-box">
+                    <span class="match-name">Barca vs Osasuna</span>
+                    <div class="tag">1X2: 1</div><div class="tag">Remates: Barca</div>
+                </div>
+                <div class="match-box">
+                    <span class="match-name">Arsenal vs Fulham</span>
+                    <div class="tag">1X2: 1</div><div class="tag">Goles: +1.5</div>
+                </div>
+            </div>
+            <div class="slip-footer">
+                <div class="odds">38.20</div>
+                <button class="btn">COPIAR</button>
+            </div>
+        </div>
     </div>
-    
-    <div id="error-msg"></div>
 
     <script>
-        // Datos básicos para probar
         var data = {
             'EURO': [
-                {
-                    title: "COMBO 5 ESTRELLAS",
-                    odds: "38.20",
-                    matches: [
-                        { name: "Barca vs Osasuna", tags: ["1X2: 1", "Remates: Barca"] },
-                        { name: "Arsenal vs Fulham", tags: ["1X2: 1", "Goles: +1.5"] },
-                        { name: "Ajax vs PSV", tags: ["1X2: X", "Goles: +2.5"] }
-                    ]
-                }
+                { title: "COMBO 5 ESTRELLAS", odds: "38.20", matches: [
+                    { name: "Barca vs Osasuna", tags: ["1X2: 1", "Remates: Barca"] },
+                    { name: "Arsenal vs Fulham", tags: ["1X2: 1", "Goles: +1.5"] },
+                    { name: "Ajax vs PSV", tags: ["1X2: X", "Goles: +2.5"] }
+                ]}
             ],
             'ESP': [
-                {
-                    title: "TRIPLETE LA LIGA",
-                    odds: "6.45",
-                    matches: [
-                        { name: "Villarreal vs Levante", tags: ["1X2: 1", "Goles: +2.5"] },
-                        { name: "Valencia vs Atleti", tags: ["X2", "Tarjetas: Valencia"] }
-                    ]
-                }
+                { title: "TRIPLETE LA LIGA", odds: "6.45", matches: [
+                    { name: "Villarreal vs Levante", tags: ["1X2: 1", "Goles: +2.5"] },
+                    { name: "Valencia vs Atleti", tags: ["X2", "Tarjetas: Valencia"] }
+                ]}
             ]
         };
 
-        function changeTab(cat, el) {
+        function render(cat) {
+            // Cambiar pestaña activa
             var tabs = document.getElementsByClassName('tab');
-            for(var i=0; i<tabs.length; i++) { tabs[i].className = 'tab'; }
-            el.className = 'tab active';
-            render(cat);
+            for(var t=0; t<tabs.length; t++) { tabs[t].style.background = '#1a1a1a'; tabs[t].style.color = '#888'; }
+            var activeTab = document.getElementById('tab-' + cat.toLowerCase());
+            if(activeTab) { activeTab.style.background = '#00ff88'; activeTab.style.color = 'black'; }
+
+            var container = document.getElementById('slips-container');
+            var items = data[cat] || [];
+            var html = '';
+
+            for(var i=0; i<items.length; i++) {
+                var it = items[i];
+                html += '<div class="bet-slip">';
+                html += '<div class="slip-header">' + it.title + '</div>';
+                html += '<div class="slip-body">';
+                for(var j=0; j<it.matches.length; j++) {
+                    html += '<div class="match-box"><span class="match-name">' + it.matches[j].name + '</span>';
+                    for(var k=0; k<it.matches[j].tags.length; k++) {
+                        html += '<div class="tag">' + it.matches[j].tags[k] + '</div>';
+                    }
+                    html += '</div>';
+                }
+                html += '</div><div class="slip-footer"><div class="odds">' + it.odds + '</div><button class="btn">COPIAR</button></div></div>';
+            }
+            container.innerHTML = html;
         }
 
-        
+        // Ejecutar inmediatamente
+        render('EURO');
+    </script>
+</body>
+</html>
