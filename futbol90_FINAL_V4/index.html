@@ -12,11 +12,18 @@
         .tabs::-webkit-scrollbar { display: none; }
         .tab { padding: 10px 22px; background: #1a1a1a; border-radius: 20px; font-weight: bold; color: #888; cursor: pointer; white-space: nowrap; transition: 0.3s; border: 1px solid transparent; }
         .tab.active { background: #00ff88; color: #000; box-shadow: 0 0 15px rgba(0,255,136,0.3); }
+        /* Special styles for European cups */
+        .tab.tab-ucl { background: #001433; color: #00bfff; border-color: #00bfff; }
+        .tab.tab-ucl.active { background: #00bfff; color: #000; box-shadow: 0 0 15px rgba(0,191,255,0.4); }
+        .tab.tab-uel { background: #2a1100; color: #ff6600; border-color: #ff6600; }
+        .tab.tab-uel.active { background: #ff6600; color: #000; box-shadow: 0 0 15px rgba(255,102,0,0.4); }
         .content { display: none; animation: fadeIn 0.4s ease; }
         .content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .combo-card { background: linear-gradient(145deg, #111, #1a1a1a); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 20px; margin-bottom: 20px; position: relative; overflow: hidden; }
         .combo-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #00ff88; }
+        .combo-card.card-ucl::before { background: #00bfff; }
+        .combo-card.card-uel::before { background: #ff6600; }
         .combo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 15px; }
         .combo-title { font-size: 1.2rem; font-weight: 800; color: white; display: flex; align-items: center; gap: 8px; }
         .combo-stats { display: flex; gap: 10px; }
@@ -31,10 +38,15 @@
         .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
         .tag { background: #222; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; color: #ddd; border: 1px solid rgba(255,255,255,0.1); }
         .tag-pick { background: linear-gradient(90deg, rgba(0,255,136,0.15), transparent); border-left: 2px solid #00ff88; color: #00ff88; }
+        .card-ucl .tag-pick { background: linear-gradient(90deg, rgba(0,191,255,0.15), transparent); border-left-color: #00bfff; color: #00bfff; }
+        .card-uel .tag-pick { background: linear-gradient(90deg, rgba(255,102,0,0.15), transparent); border-left-color: #ff6600; color: #ff6600; }
         .analysis-box { background: rgba(255,255,255,0.03); padding: 10px 12px; border-radius: 8px; font-size: 0.85rem; color: #bbb; font-style: italic; border-left: 2px solid #555; }
         .empty-state { text-align: center; padding: 40px 20px; color: #666; font-style: italic; background: rgba(255,255,255,0.02); border-radius: 12px; }
         .confidence-bar { height: 4px; background: #333; border-radius: 2px; margin-top: 8px; overflow: hidden; }
         .confidence-fill { height: 100%; background: #00ff88; border-radius: 2px; }
+        .card-ucl .confidence-fill { background: #00bfff; }
+        .card-uel .confidence-fill { background: #ff6600; }
+        .future-notice { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 0.9rem; color: #ccc; text-align: center; }
     </style>
 </head>
 <body>
@@ -46,198 +58,161 @@
 
     <script>
         const picksData = {
+  "UCL": [
+    {
+      "title": "CHAMPIONS LEAGUE SEMIFINALS (PRÓXIMAMENTE)",
+      "odds": "3.50",
+      "risk": "MEDIA",
+      "isFuture": true,
+      "matches": [
+        {
+          "name": "Arsenal FC vs Atlético de Madrid (Mañana)",
+          "time": "21:00",
+          "confidence": "78%",
+          "tags": ["1X2: 1", "GOLES: -2.5"],
+          "analysis": "El Arsenal necesita remontar en casa ante un bloque bajo de Simeone muy organizado."
+        },
+        {
+          "name": "FC Bayern München vs Paris Saint-Germain FC (Miércoles)",
+          "time": "21:00",
+          "confidence": "85%",
+          "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
+          "analysis": "Eliminatoria abierta con ataques explosivos; el Allianz Arena asegura un ritmo vertiginoso."
+        }
+      ]
+    }
+  ],
+  "UEL": [
+    {
+      "title": "EUROPA LEAGUE SEMIFINALS (JUEVES)",
+      "odds": "-",
+      "risk": "MEDIA",
+      "isFuture": true,
+      "matches": []
+    }
+  ],
   "EURO": [
     {
       "title": "COMBO 5 ESTRELLAS",
-      "odds": "18.50",
+      "odds": "11.20",
       "risk": "ALTA",
       "matches": [
         {
-          "name": "Manchester United FC vs Liverpool FC",
-          "time": "16:30",
-          "confidence": "80%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
-          "analysis": "El clásico inglés garantiza intensidad y ambos equipos tienen mucho poder ofensivo pero debilidades atrás."
-        },
-        {
-          "name": "RCD Espanyol vs Real Madrid CF",
+          "name": "Sevilla FC vs Real Sociedad",
           "time": "21:00",
-          "confidence": "85%",
-          "tags": ["1X2: 2", "GOLES: +1.5"],
-          "analysis": "El Real Madrid tiene una plantilla muy superior y el Espanyol sufre mucho ante equipos rápidos arriba."
-        },
-        {
-          "name": "Borussia Mönchengladbach vs Borussia Dortmund",
-          "time": "17:30",
           "confidence": "78%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "CÓRNERS: +9.5"],
-          "analysis": "El derbi de los Borussias siempre deja partidos abiertos, de ida y vuelta constante."
+          "tags": ["1X2: X2", "TARJETAS: +4.5"],
+          "analysis": "Duelo clave por Europa; mucha tensión y la Real Sociedad defiende muy bien a domicilio."
         },
         {
-          "name": "Aston Villa FC vs Tottenham Hotspur FC",
-          "time": "20:00",
-          "confidence": "75%",
-          "tags": ["1X2: 1", "GOLES: +2.5"],
-          "analysis": "El Villa Park es un fortín y los Spurs suelen dejar huecos a la espalda defensiva."
+          "name": "Everton FC vs Manchester City FC",
+          "time": "21:00",
+          "confidence": "88%",
+          "tags": ["1X2: 2", "CÓRNERS: CITY +6.5"],
+          "analysis": "El City no puede perdonar puntos en el tramo final y embotellará al Everton."
         },
         {
-          "name": "SC Freiburg vs VfL Wolfsburg",
-          "time": "19:30",
+          "name": "AS Roma vs ACF Fiorentina",
+          "time": "20:45",
           "confidence": "82%",
-          "tags": ["1X2: 1X", "GOLES: -3.5"],
-          "analysis": "Partido que apunta a ser muy igualado y táctico con defensas cerradas."
+          "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
+          "analysis": "Dos equipos muy ofensivos que priorizan atacar y suelen conceder espacios atrás."
+        },
+        {
+          "name": "Chelsea FC vs Nottingham Forest FC",
+          "time": "16:00",
+          "confidence": "85%",
+          "tags": ["1X2: 1", "GOLES: +1.5"],
+          "analysis": "El Chelsea domina en Stamford Bridge frente a un Forest que baja su nivel como visitante."
+        },
+        {
+          "name": "US Cremonese vs SS Lazio",
+          "time": "18:30",
+          "confidence": "80%",
+          "tags": ["1X2: 2", "REMATES: LAZIO > 4.5"],
+          "analysis": "Lazio tiene demasiada jerarquía en el centro del campo y controlará el ritmo del partido."
         }
       ]
     }
   ],
   "ESP": [
     {
-      "title": "LA LIGA AL COMPLETO",
-      "odds": "9.50",
+      "title": "CIERRE DE JORNADA LA LIGA",
+      "odds": "2.80",
       "risk": "MEDIA",
       "matches": [
         {
-          "name": "RC Celta de Vigo vs Elche CF",
-          "time": "14:00",
-          "confidence": "75%",
-          "tags": ["1X2: 1", "GOLES: -3.5"],
-          "analysis": "El Celta suele dominar en Balaídos ante un Elche que jugará muy conservador."
-        },
-        {
-          "name": "Getafe CF vs Rayo Vallecano",
-          "time": "16:15",
-          "confidence": "80%",
-          "tags": ["1X2: X", "TARJETAS: +5.5"],
-          "analysis": "Derbi madrileño de altísima intensidad, mucha fricción y pocos espacios para jugar."
-        },
-        {
-          "name": "Real Betis Balompié vs Real Oviedo",
-          "time": "18:30",
-          "confidence": "82%",
-          "tags": ["1X2: 1", "CÓRNERS: +8.5"],
-          "analysis": "El Betis necesita hacerse fuerte en el Villamarín y atacará por las bandas constantemente."
-        },
-        {
-          "name": "RCD Espanyol vs Real Madrid CF",
+          "name": "Sevilla FC vs Real Sociedad",
           "time": "21:00",
-          "confidence": "85%",
-          "tags": ["1X2: 2", "GOLES: +1.5"],
-          "analysis": "Gran diferencia de calidad individual; el Madrid aprovechará las transiciones rápidas."
+          "confidence": "78%",
+          "tags": ["1X2: X2", "TARJETAS: +4.5"],
+          "analysis": "Partido muy táctico y cerrado. La Real compite excepcionalmente bien en estadios difíciles."
         }
       ]
     }
   ],
   "ENG": [
     {
-      "title": "PREMIER TOTAL",
-      "odds": "7.80",
+      "title": "PREMIER LEAGUE MONDAY",
+      "odds": "3.10",
+      "risk": "MEDIA",
+      "matches": [
+        {
+          "name": "Chelsea FC vs Nottingham Forest FC",
+          "time": "16:00",
+          "confidence": "85%",
+          "tags": ["1X2: 1", "GOLES: +1.5"],
+          "analysis": "El potencial ofensivo del Chelsea superará el bloque defensivo de un Forest con urgencias."
+        },
+        {
+          "name": "Everton FC vs Manchester City FC",
+          "time": "21:00",
+          "confidence": "88%",
+          "tags": ["1X2: 2", "CÓRNERS: CITY +6.5"],
+          "analysis": "Monólogo asegurado de posesión del equipo de Guardiola ante el bloque bajo de los Toffees."
+        }
+      ]
+    }
+  ],
+  "GER": [],
+  "ITA": [
+    {
+      "title": "SERIE A MONDAY",
+      "odds": "4.20",
       "risk": "ALTA",
       "matches": [
         {
-          "name": "AFC Bournemouth vs Crystal Palace FC",
-          "time": "15:00",
-          "confidence": "70%",
-          "tags": ["1X2: X2", "AMBOS MARCARÁN: SÍ"],
-          "analysis": "Partido parejo de la zona media donde el Palace suele incomodar como visitante."
-        },
-        {
-          "name": "Manchester United FC vs Liverpool FC",
-          "time": "16:30",
+          "name": "US Cremonese vs SS Lazio",
+          "time": "18:30",
           "confidence": "80%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
-          "analysis": "Históricamente un duelo espectacular, ambas defensas han mostrado desconexiones recientes."
+          "tags": ["1X2: 2", "REMATES: LAZIO > 4.5"],
+          "analysis": "La calidad diferencial de los atacantes de la Lazio marcará la diferencia hoy."
         },
         {
-          "name": "Aston Villa FC vs Tottenham Hotspur FC",
-          "time": "20:00",
-          "confidence": "75%",
-          "tags": ["1X2: 1", "GOLES: +2.5"],
-          "analysis": "Los de Emery son muy sólidos en casa y el estilo del Tottenham facilita los contragolpes locales."
-        }
-      ]
-    }
-  ],
-  "GER": [
-    {
-      "title": "PARTIDAZOS BUNDESLIGA",
-      "odds": "4.50",
-      "risk": "MEDIA",
-      "matches": [
-        {
-          "name": "1. FSV Mainz 05 vs FC Augsburg",
-          "time": "15:30",
-          "confidence": "75%",
-          "tags": ["1X2: 1X", "GOLES: +1.5"],
-          "analysis": "Duelo físico donde el Mainz buscará hacer valer su localía presionando alto."
-        },
-        {
-          "name": "Borussia Mönchengladbach vs Borussia Dortmund",
-          "time": "17:30",
-          "confidence": "78%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "CÓRNERS: +9.5"],
-          "analysis": "Choque de alto voltaje, el Dortmund llega necesitado pero el Gladbach siempre da guerra."
-        },
-        {
-          "name": "SC Freiburg vs VfL Wolfsburg",
-          "time": "19:30",
-          "confidence": "82%",
-          "tags": ["1X2: 1X", "GOLES: -3.5"],
-          "analysis": "Dos equipos organizados tácticamente, primará el orden sobre el ataque desenfrenado."
-        }
-      ]
-    }
-  ],
-  "ITA": [
-    {
-      "title": "DESTACADOS SERIE A",
-      "odds": "2.10",
-      "risk": "BAJA",
-      "matches": [
-        {
-          "name": "Juventus FC vs AS Roma",
+          "name": "AS Roma vs ACF Fiorentina",
           "time": "20:45",
-          "confidence": "78%",
-          "tags": ["1X2: 1", "GOLES: -2.5"],
-          "analysis": "Clásico italiano muy táctico; la Juve se hace inexpugnable en Turín con marcadores cortos."
-        }
-      ]
-    }
-  ],
-  "FRA": [
-    {
-      "title": "DESTACADOS LIGUE 1",
-      "odds": "1.80",
-      "risk": "MEDIA",
-      "matches": [
-        {
-          "name": "Lille OSC vs Le Havre AC",
-          "time": "15:00",
-          "confidence": "85%",
-          "tags": ["1X2: 1", "GOLES: -3.5"],
-          "analysis": "Lille es muy fiable en casa ante equipos de la parte baja que vendrán a encerrarse."
-        }
-      ]
-    }
-  ],
-  "NED": [
-    {
-      "title": "DESTACADOS EREDIVISIE",
-      "odds": "1.50",
-      "risk": "MEDIA",
-      "matches": [
-        {
-          "name": "FC Volendam vs SC Heerenveen",
-          "time": "12:15",
-          "confidence": "75%",
+          "confidence": "82%",
           "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
-          "analysis": "Defensas frágiles y ataques verticales, un partido ideal para buscar un marcador abultado."
+          "analysis": "Estilos de juego que invitan al intercambio de golpes; defensas adelantadas y mucha verticalidad."
         }
       ]
     }
-  ]
+  ],
+  "FRA": [],
+  "NED": []
 };
 
-        const leagues = { "EURO": "🇪🇺 EURO", "ESP": "🇪🇸 ESP", "ENG": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 ENG", "GER": "🇩🇪 GER", "ITA": "🇮🇹 ITA", "FRA": "🇫🇷 FRA", "NED": "🇳🇱 NED" };
+        const leagues = { 
+            "UCL": "⭐ CHAMPIONS",
+            "UEL": "🏆 EUROPA L.",
+            "EURO": "🇪🇺 EURO", 
+            "ESP": "🇪🇸 ESP", 
+            "ENG": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 ENG", 
+            "GER": "🇩🇪 GER", 
+            "ITA": "🇮🇹 ITA", 
+            "FRA": "🇫🇷 FRA", 
+            "NED": "🇳🇱 NED" 
+        };
 
         function initApp() {
             const tabsDiv = document.getElementById('tabs-container');
@@ -247,9 +222,13 @@
             for (const [key, label] of Object.entries(leagues)) {
                 // Create Tab
                 const tab = document.createElement('div');
-                tab.className = `tab ${first ? 'active' : ''}`;
+                let tabClass = '';
+                if (key === 'UCL') tabClass = 'tab-ucl';
+                if (key === 'UEL') tabClass = 'tab-uel';
+                
+                tab.className = `tab ${tabClass} ${first ? 'active' : ''}`;
                 tab.innerText = label;
-                tab.onclick = () => switchTab(key);
+                tab.onclick = (e) => switchTab(key, e, tabClass);
                 tabsDiv.appendChild(tab);
 
                 // Create Content Area
@@ -266,17 +245,29 @@
         function renderContent(key, container) {
             const combos = picksData[key];
             
-            if (!combos || combos.length === 0) {
-                container.innerHTML = `<div class="empty-state">No hay partidos destacados para esta liga hoy.</div>`;
+            if (!combos || combos.length === 0 || (combos.length === 1 && combos[0].matches.length === 0)) {
+                let msg = "No hay partidos destacados para esta liga hoy.";
+                if (key === 'UCL') msg = "No hay partidos de Champions League programados para hoy.";
+                if (key === 'UEL') msg = "No hay partidos de Europa League programados para hoy.";
+                
+                container.innerHTML = `<div class="empty-state">${msg}</div>`;
                 return;
             }
 
             let html = '';
+            let isUcl = key === 'UCL';
+            let isUel = key === 'UEL';
+            let cardClass = isUcl ? 'card-ucl' : (isUel ? 'card-uel' : '');
+
             combos.forEach(combo => {
                 let riskClass = combo.risk === 'ALTA' ? 'risk-alta' : combo.risk === 'BAJA' ? 'risk-baja' : '';
                 
+                if (combo.isFuture) {
+                    html += `<div class="future-notice">ℹ️ <b>PREVIA EXCLUSIVA:</b> Estos pronósticos corresponden a la próxima jornada de la competición.</div>`;
+                }
+                
                 html += `
-                <div class="combo-card">
+                <div class="combo-card ${cardClass}">
                     <div class="combo-header">
                         <div class="combo-title">🎯 ${combo.title}</div>
                         <div class="combo-stats">
@@ -309,7 +300,7 @@
             container.innerHTML = html;
         }
 
-        function switchTab(key) {
+        function switchTab(key, event, specificClass) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
             
