@@ -4,278 +4,517 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FÚTBOL 90 PRO | MAX DATA</title>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,700,900&display=swap" rel="stylesheet">
     <style>
-        body { background: #050505; color: white; font-family: sans-serif; padding: 15px; margin: 0; background-size: cover; background-position: center; background-attachment: fixed; }
-        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.95) 100%); z-index: -1; }
-        .logo { font-size: 2.2rem; font-weight: 900; text-align: center; padding: 25px 0; color: #00ff88; border-bottom: 1px solid rgba(255,255,255,0.1); user-select: none; }
-        .tabs { display: flex; gap: 8px; overflow-x: auto; padding: 15px 5px; scrollbar-width: none; }
+        :root {
+            --color-bg: #050505;
+            --color-surface: #111111;
+            --color-surface-2: #1a1a1a;
+            --color-border: rgba(255,255,255,0.06);
+            --color-text: #e8e8e8;
+            --color-text-muted: #888;
+            --color-accent: #00ff88;
+            --color-ucl: #00bfff;
+            --color-uel: #ff6600;
+            --color-uecl: #00cc44;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --transition: 0.25s cubic-bezier(0.16,1,0.3,1);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+        body {
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Satoshi', sans-serif;
+            padding: 0 0 40px;
+            min-height: 100dvh;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(180deg, #0d0d0d 0%, rgba(5,5,5,0.95) 100%);
+            border-bottom: 1px solid var(--color-border);
+            padding: 20px 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--color-accent);
+            text-align: center;
+            letter-spacing: -0.02em;
+            padding-bottom: 4px;
+        }
+        .logo span { color: #fff; }
+        .date-badge {
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--color-text-muted);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding-bottom: 14px;
+        }
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 0 2px 12px;
+            scrollbar-width: none;
+        }
         .tabs::-webkit-scrollbar { display: none; }
-        .tab { padding: 10px 22px; background: #1a1a1a; border-radius: 20px; font-weight: bold; color: #888; cursor: pointer; white-space: nowrap; transition: 0.3s; border: 1px solid transparent; }
-        .tab.active { background: #00ff88; color: #000; box-shadow: 0 0 15px rgba(0,255,136,0.3); }
-        /* Special styles for European cups */
-        .tab.tab-ucl { background: #001433; color: #00bfff; border-color: #00bfff; }
-        .tab.tab-ucl.active { background: #00bfff; color: #000; box-shadow: 0 0 15px rgba(0,191,255,0.4); }
-        .tab.tab-uel { background: #2a1100; color: #ff6600; border-color: #ff6600; }
-        .tab.tab-uel.active { background: #ff6600; color: #000; box-shadow: 0 0 15px rgba(255,102,0,0.4); }
-        .tab.tab-uecl { background: #002200; color: #00ff00; border-color: #00ff00; }
-        .tab.tab-uecl.active { background: #00ff00; color: #000; box-shadow: 0 0 15px rgba(0,255,0,0.4); }
-        .content { display: none; animation: fadeIn 0.4s ease; }
+        .tab {
+            padding: 8px 16px;
+            background: var(--color-surface);
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 0.78rem;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+            border: 1px solid var(--color-border);
+            user-select: none;
+        }
+        .tab.active { background: var(--color-accent); color: #000; border-color: transparent; box-shadow: 0 0 18px rgba(0,255,136,0.3); }
+        .tab.tab-ucl { border-color: rgba(0,191,255,0.35); color: var(--color-ucl); }
+        .tab.tab-ucl.active { background: var(--color-ucl); color: #000; box-shadow: 0 0 18px rgba(0,191,255,0.35); }
+        .tab.tab-uel { border-color: rgba(255,102,0,0.35); color: var(--color-uel); }
+        .tab.tab-uel.active { background: var(--color-uel); color: #000; box-shadow: 0 0 18px rgba(255,102,0,0.35); }
+        .tab.tab-uecl { border-color: rgba(0,204,68,0.35); color: var(--color-uecl); }
+        .tab.tab-uecl.active { background: var(--color-uecl); color: #000; box-shadow: 0 0 18px rgba(0,204,68,0.35); }
+
+        /* CONTENT */
+        .content { display: none; padding: 16px; animation: fadeUp 0.35s ease; }
         .content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .combo-card { background: linear-gradient(145deg, #111, #1a1a1a); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 20px; margin-bottom: 20px; position: relative; overflow: hidden; }
-        .combo-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #00ff88; }
-        .combo-card.card-ucl::before { background: #00bfff; }
-        .combo-card.card-uel::before { background: #ff6600; }
-        .combo-card.card-uecl::before { background: #00ff00; }
-        .combo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 15px; }
-        .combo-title { font-size: 1.2rem; font-weight: 800; color: white; display: flex; align-items: center; gap: 8px; }
-        .combo-stats { display: flex; gap: 10px; }
-        .stat-badge { padding: 5px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; }
-        .badge-odds { background: rgba(0,255,136,0.1); color: #00ff88; border: 1px solid rgba(0,255,136,0.3); }
-        .badge-risk { background: rgba(255,193,7,0.1); color: #ffc107; border: 1px solid rgba(255,193,7,0.3); }
-        .risk-alta { background: rgba(255,51,102,0.1); color: #ff3366; border-color: rgba(255,51,102,0.3); }
-        .risk-baja { background: rgba(0,200,255,0.1); color: #00c8ff; border-color: rgba(0,200,255,0.3); }
-        .match-item { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 15px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.03); }
-        .match-top { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #aaa; }
-        .match-name { font-weight: 800; font-size: 1.1rem; color: white; margin-bottom: 12px; }
-        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-        .tag { background: #222; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; color: #ddd; border: 1px solid rgba(255,255,255,0.1); }
-        .tag-pick { background: linear-gradient(90deg, rgba(0,255,136,0.15), transparent); border-left: 2px solid #00ff88; color: #00ff88; }
-        .card-ucl .tag-pick { background: linear-gradient(90deg, rgba(0,191,255,0.15), transparent); border-left-color: #00bfff; color: #00bfff; }
-        .card-uel .tag-pick { background: linear-gradient(90deg, rgba(255,102,0,0.15), transparent); border-left-color: #ff6600; color: #ff6600; }
-        .card-uecl .tag-pick { background: linear-gradient(90deg, rgba(0,255,0,0.15), transparent); border-left-color: #00ff00; color: #00ff00; }
-        .analysis-box { background: rgba(255,255,255,0.03); padding: 10px 12px; border-radius: 8px; font-size: 0.85rem; color: #bbb; font-style: italic; border-left: 2px solid #555; }
-        .empty-state { text-align: center; padding: 40px 20px; color: #666; font-style: italic; background: rgba(255,255,255,0.02); border-radius: 12px; }
-        .confidence-bar { height: 4px; background: #333; border-radius: 2px; margin-top: 8px; overflow: hidden; }
-        .confidence-fill { height: 100%; background: #00ff88; border-radius: 2px; }
-        .card-ucl .confidence-fill { background: #00bfff; }
-        .card-uel .confidence-fill { background: #ff6600; }
-        .card-uecl .confidence-fill { background: #00ff00; }
-        .future-notice { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; margin-bottom: 20px; font-size: 0.9rem; color: #ccc; text-align: center; }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+        /* COMBO CARD */
+        .combo-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .combo-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: var(--color-accent);
+            border-radius: 3px 0 0 3px;
+        }
+        .card-ucl::before { background: var(--color-ucl); }
+        .card-uel::before { background: var(--color-uel); }
+        .card-uecl::before { background: var(--color-uecl); }
+
+        .combo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed rgba(255,255,255,0.07);
+        }
+        .combo-title {
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.3;
+        }
+        .combo-badges { display: flex; gap: 6px; flex-shrink: 0; }
+        .badge {
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .badge-odds { background: rgba(0,255,136,0.1); color: var(--color-accent); border: 1px solid rgba(0,255,136,0.25); }
+        .badge-risk-alta { background: rgba(255,51,102,0.12); color: #ff3366; border: 1px solid rgba(255,51,102,0.25); }
+        .badge-risk-media { background: rgba(255,193,7,0.12); color: #ffc107; border: 1px solid rgba(255,193,7,0.25); }
+        .badge-risk-baja { background: rgba(0,200,255,0.12); color: #00c8ff; border: 1px solid rgba(0,200,255,0.25); }
+
+        /* MATCH ITEM */
+        .match-item {
+            background: rgba(0,0,0,0.25);
+            border-radius: var(--radius-md);
+            padding: 13px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .match-item:last-child { margin-bottom: 0; }
+        .match-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--color-text-muted);
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+        .match-name {
+            font-weight: 900;
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 10px;
+            line-height: 1.35;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        .tag {
+            padding: 4px 9px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            background: #222;
+            color: #bbb;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .tag-main {
+            background: linear-gradient(90deg, rgba(0,255,136,0.12), transparent);
+            border-left: 2px solid var(--color-accent);
+            color: var(--color-accent);
+        }
+        .card-ucl .tag-main { background: linear-gradient(90deg,rgba(0,191,255,0.12),transparent); border-left-color: var(--color-ucl); color: var(--color-ucl); }
+        .card-uel .tag-main { background: linear-gradient(90deg,rgba(255,102,0,0.12),transparent); border-left-color: var(--color-uel); color: var(--color-uel); }
+        .card-uecl .tag-main { background: linear-gradient(90deg,rgba(0,204,68,0.12),transparent); border-left-color: var(--color-uecl); color: var(--color-uecl); }
+
+        .analysis {
+            background: rgba(255,255,255,0.03);
+            border-left: 2px solid rgba(255,255,255,0.1);
+            border-radius: 0 6px 6px 0;
+            padding: 8px 10px;
+            font-size: 0.78rem;
+            color: #999;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        .confidence-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .confidence-fill {
+            height: 100%;
+            background: var(--color-accent);
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+        .card-ucl .confidence-fill { background: var(--color-ucl); }
+        .card-uel .confidence-fill { background: var(--color-uel); }
+        .card-uecl .confidence-fill { background: var(--color-uecl); }
+
+        /* EMPTY STATE */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--color-text-muted);
+            font-size: 0.88rem;
+            background: rgba(255,255,255,0.02);
+            border-radius: var(--radius-lg);
+            border: 1px dashed rgba(255,255,255,0.07);
+            font-style: italic;
+        }
+        .empty-icon { font-size: 2rem; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="logo">FÚTBOL 90 PRO</div>
-
-    <div class="tabs" id="tabs-container"></div>
+    <div class="header">
+        <div class="logo">FÚTBOL 90 <span>PRO</span></div>
+        <div class="date-badge">⚡ Sábado 9 de Mayo 2026 · Jornada en vivo</div>
+        <div class="tabs" id="tabs-container"></div>
+    </div>
     <div id="content-container"></div>
 
     <script>
-        const picksData = {
-  "UCL": [
-    {
-      "title": "CHAMPIONS LEAGUE SEMIFINALS",
-      "odds": "-",
-      "risk": "MEDIA",
-      "isFuture": false,
-      "matches": []
-    }
-  ],
-  "UEL": [
-    {
-      "title": "EUROPA LEAGUE SEMIFINALS (VUELTA)",
-      "odds": "4.20",
-      "risk": "MEDIA",
-      "isFuture": false,
-      "matches": [
+    const picksData = {
+      "UCL": [],
+      "UEL": [],
+      "UECL": [],
+      "EURO": [
         {
-          "name": "Aston Villa FC vs Nottingham Forest FC",
-          "time": "21:00",
-          "confidence": "85%",
-          "tags": ["1X2: 1", "CÓRNERS: VILLA +6.5"],
-          "analysis": "El Villa debe remontar el 0-1 de la ida y dominará el partido asediando al Forest en casa."
-        },
-        {
-          "name": "SC Freiburg vs SC Braga",
-          "time": "21:00",
-          "confidence": "80%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
-          "analysis": "El Freiburg tiene que remontar un 1-2, lo que abrirá mucho el partido ante un Braga peligroso."
-        }
-      ]
-    }
-  ],
-  "UECL": [
-    {
-      "title": "CONFERENCE LEAGUE SEMIFINALS (VUELTA)",
-      "odds": "3.80",
-      "risk": "MEDIA",
-      "isFuture": false,
-      "matches": [
-        {
-          "name": "RC Strasbourg vs Rayo Vallecano",
-          "time": "21:00",
-          "confidence": "78%",
-          "tags": ["1X2: X2", "TARJETAS: +4.5"],
-          "analysis": "Duelo muy disputado donde la intensidad y las faltas marcarán el ritmo del encuentro europeo."
-        },
-        {
-          "name": "Crystal Palace FC vs Shakhtar Donetsk",
-          "time": "21:00",
-          "confidence": "82%",
-          "tags": ["1X2: 1", "GOLES: +1.5"],
-          "analysis": "Crystal Palace hace valer su peso en Selhurst Park frente a equipos de menor ritmo competitivo."
-        }
-      ]
-    }
-  ],
-  "EURO": [
-    {
-      "title": "COMBO SEMIFINALES EUROPEAS",
-      "odds": "12.50",
-      "risk": "ALTA",
-      "matches": [
-        {
-          "name": "Aston Villa FC vs Nottingham Forest FC",
-          "time": "21:00",
-          "confidence": "85%",
-          "tags": ["1X2: 1", "CÓRNERS: VILLA +6.5"],
-          "analysis": "Monólogo asegurado del Villa buscando igualar la eliminatoria desde el primer minuto."
-        },
-        {
-          "name": "SC Freiburg vs SC Braga",
-          "time": "21:00",
-          "confidence": "80%",
-          "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
-          "analysis": "Choque de ida y vuelta; defensas expuestas por la necesidad del equipo local."
-        },
-        {
-          "name": "RC Strasbourg vs Rayo Vallecano",
-          "time": "21:00",
-          "confidence": "78%",
-          "tags": ["1X2: X2", "TARJETAS: +4.5"],
-          "analysis": "El Rayo compite muy bien en estos escenarios de alta tensión y fricción constante."
-        },
-        {
-          "name": "Crystal Palace FC vs Shakhtar Donetsk",
-          "time": "21:00",
-          "confidence": "82%",
-          "tags": ["1X2: 1", "GOLES: +1.5"],
-          "analysis": "Superioridad física y táctica del Crystal Palace jugando en su estadio ante su afición."
-        }
-      ]
-    }
-  ],
-  "ESP": [],
-  "ENG": [],
-  "GER": [],
-  "ITA": [],
-  "FRA": [],
-  "NED": []
-};
-
-        const leagues = { 
-            "UCL": "⭐ CHAMPIONS",
-            "UEL": "🏆 EUROPA L.",
-            "UECL": "🟢 CONFERENCE",
-            "EURO": "🇪🇺 EURO COMBO", 
-            "ESP": "🇪🇸 ESP", 
-            "ENG": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 ENG", 
-            "GER": "🇩🇪 GER", 
-            "ITA": "🇮🇹 ITA", 
-            "FRA": "🇫🇷 FRA", 
-            "NED": "🇳🇱 NED" 
-        };
-
-        function initApp() {
-            const tabsDiv = document.getElementById('tabs-container');
-            const contentDiv = document.getElementById('content-container');
-            let first = true;
-
-            for (const [key, label] of Object.entries(leagues)) {
-                // Create Tab
-                const tab = document.createElement('div');
-                let tabClass = '';
-                if (key === 'UCL') tabClass = 'tab-ucl';
-                if (key === 'UEL') tabClass = 'tab-uel';
-                if (key === 'UECL') tabClass = 'tab-uecl';
-                
-                tab.className = `tab ${tabClass} ${first ? 'active' : ''}`;
-                tab.innerText = label;
-                tab.onclick = (e) => switchTab(key, e, tabClass);
-                tabsDiv.appendChild(tab);
-
-                // Create Content Area
-                const content = document.createElement('div');
-                content.id = `content-${key}`;
-                content.className = `content ${first ? 'active' : ''}`;
-                contentDiv.appendChild(content);
-
-                renderContent(key, content);
-                first = false;
+          "title": "COMBO 5 ESTRELLAS — SÁBADO 9 MAYO",
+          "odds": "16.80",
+          "risk": "ALTA",
+          "matches": [
+            {
+              "name": "Liverpool FC vs Chelsea FC",
+              "time": "13:30",
+              "confidence": "82%",
+              "tags": ["1X2: 1", "AMBOS MARCARÁN: SÍ"],
+              "analysis": "Liverpool en Anfield es casi invencible; Chelsea sin embargo tiene poder goleador para responder."
+            },
+            {
+              "name": "VfL Wolfsburg vs FC Bayern München",
+              "time": "15:30",
+              "confidence": "90%",
+              "tags": ["1X2: 2", "GOLES: +2.5"],
+              "analysis": "El Bayern viaja a Wolfsburg con la Bundesliga en el bolsillo y golpeará sin piedad."
+            },
+            {
+              "name": "Atlético de Madrid vs RC Celta de Vigo",
+              "time": "18:30",
+              "confidence": "80%",
+              "tags": ["1X2: 1", "GOLES: -3.5"],
+              "analysis": "El Atlético en el Metropolitano cierra filas defensivamente y gana de manera controlada."
+            },
+            {
+              "name": "Manchester City FC vs Brentford FC",
+              "time": "18:30",
+              "confidence": "85%",
+              "tags": ["1X2: 1", "CÓRNERS: CITY +7.5"],
+              "analysis": "City domina en el Etihad con alta posesión, forzando saques de esquina constantemente."
+            },
+            {
+              "name": "VfB Stuttgart vs Bayer 04 Leverkusen",
+              "time": "15:30",
+              "confidence": "78%",
+              "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
+              "analysis": "Duelo de alto voltaje entre dos ataques rápidos con defensas que dejan espacios."
             }
+          ]
+        }
+      ],
+      "ESP": [
+        {
+          "title": "LA LIGA J35 — SÁBADO 9 MAYO",
+          "odds": "8.90",
+          "risk": "MEDIA",
+          "matches": [
+            {
+              "name": "Elche CF vs Deportivo Alavés",
+              "time": "14:00",
+              "confidence": "65%",
+              "tags": ["1X2: X2", "GOLES: -2.5"],
+              "analysis": "El Alavés necesita puntos para salvarse; el Elche es endeble en casa esta temporada."
+            },
+            {
+              "name": "Sevilla FC vs RCD Espanyol",
+              "time": "16:15",
+              "confidence": "72%",
+              "tags": ["1X2: 1", "TARJETAS: +4.5"],
+              "analysis": "El Sánchez-Pizjuán juega a su favor; el Espanyol suele provocar muchas amonestaciones."
+            },
+            {
+              "name": "Club Atlético de Madrid vs RC Celta de Vigo",
+              "time": "18:30",
+              "confidence": "80%",
+              "tags": ["1X2: 1", "GOLES: -3.5"],
+              "analysis": "Simeone vende muy caro cada gol encajado en el Metropolitano ante equipos de media tabla."
+            },
+            {
+              "name": "Real Sociedad vs Real Betis Balompié",
+              "time": "21:00",
+              "confidence": "68%",
+              "tags": ["AMBOS MARCARÁN: SÍ", "CÓRNERS: +9.5"],
+              "analysis": "Duelo abierto entre dos equipos que atacan por bandas y generan muchos saques de esquina."
+            }
+          ]
+        }
+      ],
+      "ENG": [
+        {
+          "title": "PREMIER LEAGUE J36 — SÁBADO 9 MAYO",
+          "odds": "10.20",
+          "risk": "ALTA",
+          "matches": [
+            {
+              "name": "Liverpool FC vs Chelsea FC",
+              "time": "13:30",
+              "confidence": "82%",
+              "tags": ["1X2: 1", "AMBOS MARCARÁN: SÍ"],
+              "analysis": "Liverpool en Anfield lleva 14 partidos sin perder; Chelsea tiene ataque de primer nivel."
+            },
+            {
+              "name": "Fulham FC vs AFC Bournemouth",
+              "time": "16:00",
+              "confidence": "70%",
+              "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
+              "analysis": "Duelo de equipos de media tabla con ataques activos y defensas que conceden espacios."
+            },
+            {
+              "name": "Sunderland AFC vs Manchester United FC",
+              "time": "16:00",
+              "confidence": "74%",
+              "tags": ["1X2: 2", "REMATES: UNITED > 4.5"],
+              "analysis": "El United necesita ganar para Europa; Sunderland es recién ascendido y sufre como local ante grandes."
+            },
+            {
+              "name": "Brighton & Hove Albion FC vs Wolverhampton Wanderers FC",
+              "time": "16:00",
+              "confidence": "78%",
+              "tags": ["1X2: 1", "CÓRNERS: +10.5"],
+              "analysis": "Brighton juega su fútbol combinativo en casa y domina los saques de esquina en el AMEX."
+            },
+            {
+              "name": "Manchester City FC vs Brentford FC",
+              "time": "18:30",
+              "confidence": "85%",
+              "tags": ["1X2: 1", "GOLES: +2.5"],
+              "analysis": "City en el Etihad es una apisonadora; Brentford tampoco cierra bien como visitante."
+            }
+          ]
+        }
+      ],
+      "GER": [
+        {
+          "title": "BUNDESLIGA J33 — SÁBADO 9 MAYO",
+          "odds": "5.60",
+          "risk": "MEDIA",
+          "matches": [
+            {
+              "name": "RB Leipzig vs FC St. Pauli",
+              "time": "15:30",
+              "confidence": "85%",
+              "tags": ["1X2: 1", "GOLES: +2.5"],
+              "analysis": "El Leipzig necesita ganar para Europa; el St. Pauli lucha por no bajar y jugará muy abierto."
+            },
+            {
+              "name": "VfB Stuttgart vs Bayer 04 Leverkusen",
+              "time": "15:30",
+              "confidence": "78%",
+              "tags": ["AMBOS MARCARÁN: SÍ", "GOLES: +2.5"],
+              "analysis": "Partido de alto nivel táctico con dos ataques verticales que van a buscar el gol desde el inicio."
+            },
+            {
+              "name": "VfL Wolfsburg vs FC Bayern München",
+              "time": "15:30",
+              "confidence": "90%",
+              "tags": ["1X2: 2", "GOLES: +2.5"],
+              "analysis": "El Bayern sigue imparable, Wolfsburg no tiene recursos para frenar su maquinaria ofensiva."
+            }
+          ]
+        }
+      ],
+      "ITA": [],
+      "FRA": [],
+      "NED": []
+    };
+
+    const leagues = {
+        "UCL":  "⭐ CHAMPIONS",
+        "UEL":  "🏆 EUROPA L.",
+        "UECL": "🟢 CONFERENCE",
+        "EURO": "🇪🇺 EURO COMBO",
+        "ESP":  "🇪🇸 ESP",
+        "ENG":  "🏴󠁧󠁢󠁥󠁮󠁧󠁿 ENG",
+        "GER":  "🇩🇪 GER",
+        "ITA":  "🇮🇹 ITA",
+        "FRA":  "🇫🇷 FRA",
+        "NED":  "🇳🇱 NED"
+    };
+
+    const tabSpecial = { UCL: 'tab-ucl', UEL: 'tab-uel', UECL: 'tab-uecl' };
+    const cardSpecial = { UCL: 'card-ucl', UEL: 'card-uel', UECL: 'card-uecl' };
+    const emptyMessages = {
+        UCL:  "No hay partidos de Champions League hoy.",
+        UEL:  "No hay partidos de Europa League hoy.",
+        UECL: "No hay partidos de Conference League hoy.",
+        ITA:  "No hay partidos de Serie A hoy.",
+        FRA:  "No hay partidos de Ligue 1 hoy.",
+        NED:  "No hay partidos de Eredivisie hoy."
+    };
+
+    function initApp() {
+        const tabsDiv = document.getElementById('tabs-container');
+        const contentDiv = document.getElementById('content-container');
+        let first = true;
+
+        for (const [key, label] of Object.entries(leagues)) {
+            const tab = document.createElement('div');
+            tab.className = `tab ${tabSpecial[key] || ''} ${first ? 'active' : ''}`.trim();
+            tab.innerText = label;
+            tab.dataset.key = key;
+            tab.onclick = () => switchTab(key);
+            tabsDiv.appendChild(tab);
+
+            const content = document.createElement('div');
+            content.id = `content-${key}`;
+            content.className = `content ${first ? 'active' : ''}`.trim();
+            contentDiv.appendChild(content);
+
+            renderContent(key, content);
+            first = false;
+        }
+    }
+
+    function renderContent(key, container) {
+        const combos = picksData[key];
+        const cardClass = cardSpecial[key] || '';
+        const isEmpty = !combos || combos.length === 0 || (combos.length === 1 && combos[0].matches.length === 0);
+
+        if (isEmpty) {
+            const msg = emptyMessages[key] || "No hay partidos destacados para esta liga hoy.";
+            container.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div>${msg}</div>`;
+            return;
         }
 
-        function renderContent(key, container) {
-            const combos = picksData[key];
-            
-            if (!combos || combos.length === 0 || (combos.length === 1 && combos[0].matches.length === 0)) {
-                let msg = "No hay partidos destacados para esta liga hoy.";
-                if (key === 'UCL') msg = "No hay partidos de Champions League programados para hoy.";
-                if (key === 'UEL') msg = "No hay partidos de Europa League programados para hoy.";
-                if (key === 'UECL') msg = "No hay partidos de Conference League programados para hoy.";
-                
-                container.innerHTML = `<div class="empty-state">${msg}</div>`;
-                return;
-            }
+        let html = '';
+        combos.forEach(combo => {
+            const riskClass = `badge-risk-${(combo.risk || 'media').toLowerCase()}`;
+            html += `
+            <div class="combo-card ${cardClass}">
+                <div class="combo-header">
+                    <div class="combo-title">🎯 ${combo.title}</div>
+                    <div class="combo-badges">
+                        <span class="badge badge-odds">@${combo.odds}</span>
+                        <span class="badge ${riskClass}">${combo.risk}</span>
+                    </div>
+                </div>`;
 
-            let html = '';
-            let isUcl = key === 'UCL';
-            let isUel = key === 'UEL';
-            let isUecl = key === 'UECL';
-            let cardClass = isUcl ? 'card-ucl' : (isUel ? 'card-uel' : (isUecl ? 'card-uecl' : ''));
-
-            combos.forEach(combo => {
-                let riskClass = combo.risk === 'ALTA' ? 'risk-alta' : combo.risk === 'BAJA' ? 'risk-baja' : '';
-                
-                if (combo.isFuture) {
-                    html += `<div class="future-notice">ℹ️ <b>PREVIA EXCLUSIVA:</b> Estos pronósticos corresponden a la próxima jornada de la competición.</div>`;
-                }
-                
+            combo.matches.forEach(match => {
+                const tagsHtml = match.tags.map((t, i) =>
+                    `<span class="tag ${i === 0 ? 'tag-main' : ''}">${t}</span>`
+                ).join('');
                 html += `
-                <div class="combo-card ${cardClass}">
-                    <div class="combo-header">
-                        <div class="combo-title">🎯 ${combo.title}</div>
-                        <div class="combo-stats">
-                            <span class="stat-badge badge-odds">@${combo.odds}</span>
-                            <span class="stat-badge badge-risk ${riskClass}">${combo.risk}</span>
-                        </div>
-                    </div>`;
-
-                combo.matches.forEach(match => {
-                    let tagsHtml = match.tags.map((t, i) => `<span class="tag ${i===0?'tag-pick':''}">${t}</span>`).join('');
-                    
-                    html += `
-                    <div class="match-item">
-                        <div class="match-top">
-                            <span>⏱ ${match.time}</span>
-                            <span>🔥 ${match.confidence}</span>
-                        </div>
-                        <div class="match-name">${match.name}</div>
-                        <div class="tags">${tagsHtml}</div>
-                        <div class="analysis-box">💬 ${match.analysis}</div>
-                        <div class="confidence-bar">
-                            <div class="confidence-fill" style="width: ${match.confidence}"></div>
-                        </div>
-                    </div>`;
-                });
-
-                html += `</div>`;
+                <div class="match-item">
+                    <div class="match-meta">
+                        <span>⏱ ${match.time}</span>
+                        <span>🔥 ${match.confidence}</span>
+                    </div>
+                    <div class="match-name">${match.name}</div>
+                    <div class="tags">${tagsHtml}</div>
+                    <div class="analysis">💬 ${match.analysis}</div>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width:${match.confidence}"></div>
+                    </div>
+                </div>`;
             });
 
-            container.innerHTML = html;
-        }
+            html += `</div>`;
+        });
 
-        function switchTab(key, event, specificClass) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById(`content-${key}`).classList.add('active');
-        }
+        container.innerHTML = html;
+    }
 
-        initApp();
+    function switchTab(key) {
+        document.querySelectorAll('.tab').forEach(t => {
+            t.classList.remove('active');
+            if (t.dataset.key === key) t.classList.add('active');
+        });
+        document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+        document.getElementById(`content-${key}`).classList.add('active');
+    }
+
+    initApp();
     </script>
 </body>
 </html>
